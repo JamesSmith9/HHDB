@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SampleMembershipDBModelStoreContainer" CdmEntityContainer="SampleMembershipDBEntities">
+    <EntitySetMapping Name="ApprovalStatus">
+      <EntityTypeMapping TypeName="SampleMembershipDBModel.ApprovalStatu">
+        <MappingFragment StoreEntitySet="ApprovalStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeToOpportunities">
+      <EntityTypeMapping TypeName="SampleMembershipDBModel.EmployeeToOpportunity">
+        <MappingFragment StoreEntitySet="EmployeeToOpportunity">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="VolunteerID" ColumnName="VolunteerID" />
+          <ScalarProperty Name="OpportunityID" ColumnName="OpportunityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opportunities">
+      <EntityTypeMapping TypeName="SampleMembershipDBModel.Opportunity">
+        <MappingFragment StoreEntitySet="Opportunities">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Volunteers">
+      <EntityTypeMapping TypeName="SampleMembershipDBModel.Volunteer">
+        <MappingFragment StoreEntitySet="Volunteer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PreferredCenters" ColumnName="PreferredCenters" />
+          <ScalarProperty Name="Skills" ColumnName="Skills" />
+          <ScalarProperty Name="AvailableTimes" ColumnName="AvailableTimes" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Education" ColumnName="Education" />
+          <ScalarProperty Name="Licenses" ColumnName="Licenses" />
+          <ScalarProperty Name="Emergency_Contact_Name" ColumnName="Emergency Contact Name" />
+          <ScalarProperty Name="Emergency_Contact_Phone" ColumnName="Emergency Contact Phone" />
+          <ScalarProperty Name="Emergency_Contact_Email" ColumnName="Emergency Contact Email" />
+          <ScalarProperty Name="Emergency_Contact_Address" ColumnName="Emergency Contact Address" />
+          <ScalarProperty Name="LicenseOnFile" ColumnName="LicenseOnFile" />
+          <ScalarProperty Name="SocialSecurityCardOnFile" ColumnName="SocialSecurityCardOnFile" />
+          <ScalarProperty Name="Approval_Status" ColumnName="Approval Status" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

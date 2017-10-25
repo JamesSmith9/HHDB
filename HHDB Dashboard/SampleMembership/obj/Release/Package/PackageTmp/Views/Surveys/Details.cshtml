@@ -1,0 +1,41 @@
+﻿@model SampleMembership.Models.Survey
+
+@{
+    ViewBag.Title = "Questions";
+}
+
+<h2>Survey Questions</h2>
+
+<div>
+    <h4>Survey</h4>
+    <p>
+        @Html.ActionLink("Edit Survey Questions", "Edit", "SurveyXQuestions", new { id = Model.SurveyID }, null) |
+        @Html.ActionLink("Back to Surveys", "Index")
+    </p>
+    <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Questions")
+                </th>
+            </tr>
+
+            @foreach (var item in Model.SurveyQuestions) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Questions", new { id=item.QuestionID }, null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+ 
+</div>
+

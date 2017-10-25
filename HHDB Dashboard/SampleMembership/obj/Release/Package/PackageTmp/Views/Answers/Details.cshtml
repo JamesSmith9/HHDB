@@ -1,0 +1,50 @@
+﻿@model SampleMembership.Models.Answer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Answer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnsText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnsText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEntered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEntered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeEntered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeEntered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyXQuestion.SXQID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyXQuestion.SXQID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -19,19 +19,35 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateEntered)
+            @Html.DisplayNameFor(model => model.CreatedByUser)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateEntered)
+            @Html.DisplayFor(model => model.CreatedByUser)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EmployeeEntered)
+            @Html.DisplayNameFor(model => model.Month)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EmployeeEntered)
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
         </dd>
 
         <dt>
@@ -45,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnswerID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HHDBModelStoreContainer" CdmEntityContainer="HHDBEntities">
-    <EntitySetMapping Name="Answers">
-      <EntityTypeMapping TypeName="HHDBModel.Answer">
-        <MappingFragment StoreEntitySet="Answer">
-          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
-          <ScalarProperty Name="AnsGroupID" ColumnName="AnsGroupID" />
-          <ScalarProperty Name="SXQID" ColumnName="SXQID" />
-          <ScalarProperty Name="AnsText" ColumnName="AnsText" />
-          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="HHDBModel.Question">
         <MappingFragment StoreEntitySet="Question">
@@ -38,6 +27,19 @@
           <ScalarProperty Name="SXQID" ColumnName="SXQID" />
           <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
           <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="HHDBModel.Answer">
+        <MappingFragment StoreEntitySet="Answer">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+          <ScalarProperty Name="CreatedByUser" ColumnName="CreatedByUser" />
+          <ScalarProperty Name="AnsText" ColumnName="AnsText" />
+          <ScalarProperty Name="SXQID" ColumnName="SXQID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

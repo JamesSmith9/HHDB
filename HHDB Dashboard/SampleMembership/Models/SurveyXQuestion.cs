@@ -25,9 +25,9 @@ namespace SampleMembership.Models
         public int SurveyID { get; set; }
         public Nullable<bool> Active { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Answer> Answers { get; set; }
         public virtual Question Question { get; set; }
         public virtual Survey Survey { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

@@ -14,11 +14,13 @@ namespace SampleMembership.Models
     
     public partial class Answer
     {
-        public int AnsGroupID { get; set; }
         public int SXQID { get; set; }
         public string AnsText { get; set; }
-        public System.DateTime DateEntered { get; set; }
-        public Nullable<System.Guid> CreatedByUser { get; set; }
+        public System.Guid CreatedByUser { get; set; }
+        public int AnswerID { get; set; }
+        public short Month { get; set; }
+        public short Year { get; set; }
+        public int Quantity { get; set; }
     
         public virtual SurveyXQuestion SurveyXQuestion { get; set; }
     }

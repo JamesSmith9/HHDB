@@ -2,14 +2,15 @@
 <Schema Namespace="HHDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Answer">
     <Key>
-      <PropertyRef Name="AnsGroupID" />
-      <PropertyRef Name="SXQID" />
+      <PropertyRef Name="AnswerID" />
     </Key>
-    <Property Name="AnsGroupID" Type="int" Nullable="false" />
     <Property Name="SXQID" Type="int" Nullable="false" />
-    <Property Name="AnsText" Type="varchar" MaxLength="500" />
-    <Property Name="DateEntered" Type="date" Nullable="false" />
-    <Property Name="CreatedByUser" Type="uniqueidentifier" />
+    <Property Name="AnsText" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="CreatedByUser" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="smallint" Nullable="false" />
+    <Property Name="Year" Type="smallint" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Question">
     <Key>
@@ -37,6 +38,18 @@
     <Property Name="SurveyID" Type="int" Nullable="false" />
     <Property Name="Active" Type="bit" />
   </EntityType>
+  <Association Name="FK_Answer_SurveyXQuestion">
+    <End Role="SurveyXQuestion" Type="Self.SurveyXQuestion" Multiplicity="1" />
+    <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SurveyXQuestion">
+        <PropertyRef Name="SXQID" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="SXQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SurveyXQuestion_Question">
     <End Role="Question" Type="Self.Question" Multiplicity="1" />
     <End Role="SurveyXQuestion" Type="Self.SurveyXQuestion" Multiplicity="*" />
@@ -66,6 +79,10 @@
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SurveyXQuestion" EntityType="Self.SurveyXQuestion" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Answer_SurveyXQuestion" Association="Self.FK_Answer_SurveyXQuestion">
+      <End Role="SurveyXQuestion" EntitySet="SurveyXQuestion" />
+      <End Role="Answer" EntitySet="Answer" />
+    </AssociationSet>
     <AssociationSet Name="FK_SurveyXQuestion_Question" Association="Self.FK_SurveyXQuestion_Question">
       <End Role="Question" EntitySet="Question" />
       <End Role="SurveyXQuestion" EntitySet="SurveyXQuestion" />

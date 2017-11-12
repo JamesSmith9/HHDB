@@ -23,8 +23,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>
-                    <li>@Html.ActionLink("Import Data", "Index", "Import")</li>
-                    <li>@Html.ActionLink("Report Generator", "Index", "Report")</li>
+                    @* These don't go anywhere yet*@
+                    <li>@Html.ActionLink("Import", "Index", "Import")</li>
+                    <li>@Html.ActionLink("Reports", "Index", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

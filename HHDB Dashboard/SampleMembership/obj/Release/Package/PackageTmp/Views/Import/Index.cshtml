@@ -1,17 +1,16 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-
 <h2>Import Data</h2>
 
-
-@using (Html.BeginForm("Index", "Data", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "Upload", FormMethod.Post,
+                                                  new { enctype = "multipart/form-data" }))
 {
-    <br />
-    <br />
-    <input type="file" name="file" />
-    <br />
-    <br />
-    <input type="submit" value="Submit" />
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <br />
+        <input type="file" name="file" />
+        <br />
+        <input type="submit" value="Upload" />
+    </fieldset>
 }

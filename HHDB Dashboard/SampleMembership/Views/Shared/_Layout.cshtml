@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
         <div class="container"> 
             @Html.ActionLink("Hubbard House Dashboard", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <div class="navbar-header">
@@ -42,7 +42,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap-lux")
     @RenderSection("scripts", required: false)
 </body>
 </html>

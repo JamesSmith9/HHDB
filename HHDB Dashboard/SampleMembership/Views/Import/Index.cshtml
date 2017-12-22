@@ -3,14 +3,13 @@
 }
 <h2>Import Data</h2>
 
-@using (Html.BeginForm("Upload", "Upload", FormMethod.Post,
-                                                  new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <br />
-        <input type="file" name="file" />
-        <br />
-        <input type="submit" value="Upload" />
-    </fieldset>
-}
+
+<br />
+<ul>>
+    <li>@Html.ActionLink("Resident Exit Interview/Satisfaction Survey", "Form1", "Import")</li>
+    <li>@Html.ActionLink("Adult Outreach Satisfaction Survey/Exit Interview", "Form2", "Import")</li>
+    <li>@Html.ActionLink("InVEST Satisfaction Survey/Exit Interview", "Form3", "Import")</li>
+    <li>@Html.ActionLink("Baker County Satisfaction Survey/Exit Interview", "Form4", "Import")</li>
+    <li>@Html.ActionLink("Court Advocacy Satisfaction Survey/Exit Interview", "Form5", "Import")</li>
+</ul>
+<br />

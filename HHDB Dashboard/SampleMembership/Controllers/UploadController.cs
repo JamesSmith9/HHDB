@@ -9,6 +9,7 @@ using System.Net;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web.Security;
 
 namespace SampleMembership.Controllers
 {
@@ -16,64 +17,91 @@ namespace SampleMembership.Controllers
     public class UploadController : Controller
     {
         // GET: Upload
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload()
         {
-            if (file != null && file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Content/Import"), fileName);
-                file.SaveAs(path);
-
-
-
-                DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[5] { new DataColumn("SXQID", typeof(int)),
-                                                        new DataColumn("AnsText", typeof(string)),
-                                                        new DataColumn("Month",typeof(int)),
-                                                        new DataColumn("Year", typeof(int)),
-                                                        new DataColumn("Quantity", typeof(int))   });
-
-
-                string csvData = System.IO.File.ReadAllText(path);
-                foreach (string row in csvData.Split('\n'))
-                {
-                    if (!string.IsNullOrEmpty(row))
-                    {
-                        dt.Rows.Add();
-                        int i = 0;
-                        foreach (string cell in row.Split(','))
-                        {
-                            dt.Rows[dt.Rows.Count - 1][i] = cell;
-                            i++;
-                        }
-                    }
-                }
-
-                string consString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(consString))
-                {
-                    using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
-                    {
-                        //Set the database table name
-                        sqlBulkCopy.DestinationTableName = "dbo.Answer_Staging";
-                        con.Open();
-                        sqlBulkCopy.WriteToServer(dt);
-                        con.Close();
-                    }
-                }
-
-
-
-
-
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Form1(object sender, EventArgs e)
+        {
+                
+            int Month = Convert.ToInt32(Request["month"].ToString());
+            int Year = Convert.ToInt32(Request["year"].ToString());
+
+
+            int s1q1y = Convert.ToInt32(Request["s1q1y"].ToString());
+            int s1q1n = Convert.ToInt32(Request["s1q1n"].ToString());
+
+
+
+
+
+            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
+            SqlConnection conn = null;
+            try
+            {
+                conn = new SqlConnection(connString);
+                conn.Open();
+
+                AnswerSqlHandler(1, "Yes", Month, Year, s1q1y, conn);
+                AnswerSqlHandler(1, "No", Month, Year, s1q1n, conn);
+
+            }
+            catch (Exception ex)
+            {
+                string a = ex.ToString();
+                //log error 
+                //display friendly error to user
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+
+
+
+            return View("Upload");
+        }
+
+
+
+
+
+        public void AnswerSqlHandler (int SXQID, string AnsText, int Month, int Year, int Quantity, SqlConnection conn)
+        {
+            if (Quantity != 0)
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT INTO dbo.Answer (SXQID, AnsText, CreatedByUser, Month, Year, Quantity) VALUES (@SXQID, @AnsText, @User, @Month, @Year, @Quantity)";
+                    cmd.Parameters.AddWithValue("@SXQID", SXQID);
+                    cmd.Parameters.AddWithValue("@AnsText", AnsText);
+                    cmd.Parameters.AddWithValue("@User", User);
+                    cmd.Parameters.AddWithValue("@Month", Month);
+                    cmd.Parameters.AddWithValue("@Year", Year);
+                    cmd.Parameters.AddWithValue("@Quantity", Quantity);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
+                    {
+                        //Success notification
+                    }
+                    else
+                    {
+                        //Error notification
+                    }
+                }
+                
+            }
         }
     }
 }

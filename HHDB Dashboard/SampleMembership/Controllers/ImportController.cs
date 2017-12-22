@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace SampleMembership.Controllers
@@ -13,5 +13,14 @@ namespace SampleMembership.Controllers
         {
             return View();
         }
+
+        // GET: Import/Form1
+        public ActionResult Form1()
+        {
+            return View();
+        }
+
+       
+
     }
 }

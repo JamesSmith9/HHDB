@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Form1";
+}
+
+<h2>Hubbard House Resident Exit Interview/Satisfaction Survey</h2>
+
+@using (Html.BeginForm("Form1", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form>
+        <br />
+        Month: <input type="text" name="month" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year: <input type="text" name="year" pattern="[0-9]{4}" required />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>I feel more hopeful about the future.</h2><br />
+        Number of yes responses:
+        <input type="number" name="s1q1y" value="0" /><br />
+        Number of no reponses:
+        <input type="number" name="s1q1n" value="0" /><br />
+        <br />
+        <br />
+        <button>Submit</button>
+    </form>
+}
+

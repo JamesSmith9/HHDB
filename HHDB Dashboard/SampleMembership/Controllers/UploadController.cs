@@ -30,8 +30,10 @@ namespace SampleMembership.Controllers
 
             int Month = Convert.ToInt32(Request["month"].ToString());
             int Year = Convert.ToInt32(Request["year"].ToString());
-            string UserString = User.Identity.GetUserId();
-            Guid user = new Guid("83e8a966-e8b8-4f15-a03d-1de51f573c8f");
+            var username = HttpContext.Session["user"];
+            MembershipUser u = Membership.GetUser();
+            Guid user = (Guid) u.ProviderUserKey;
+           //Guid user = new Guid("83e8a966-e8b8-4f15-a03d-1de51f573c8f");
 
             int s1q1y = Convert.ToInt32(Request["s1q1y"].ToString());
             int s1q1n = Convert.ToInt32(Request["s1q1n"].ToString());

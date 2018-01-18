@@ -31,5 +31,10 @@ namespace SampleMembership.Controllers
 
             return View();
         }
+
+        public ActionResult Chart()
+        {
+            return View();
+        }
     }
 }

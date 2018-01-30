@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SampleMembershipDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ApprovalStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeToOpportunity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VolunteerID" Type="int" Nullable="false" />
+    <Property Name="OpportunityID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Opportunities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Volunteer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PreferredCenters" Type="varchar" MaxLength="50" />
+    <Property Name="Skills" Type="varchar" MaxLength="50" />
+    <Property Name="AvailableTimes" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Zipcode" Type="nchar" MaxLength="10" />
+    <Property Name="HomePhone" Type="varchar" MaxLength="50" />
+    <Property Name="CellPhone" Type="varchar" MaxLength="50" />
+    <Property Name="WorkPhone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Education" Type="varchar" MaxLength="50" />
+    <Property Name="Licenses" Type="varchar" MaxLength="50" />
+    <Property Name="Emergency Contact Name" Type="varchar" MaxLength="50" />
+    <Property Name="Emergency Contact Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Emergency Contact Email" Type="varchar" MaxLength="50" />
+    <Property Name="Emergency Contact Address" Type="varchar" MaxLength="50" />
+    <Property Name="LicenseOnFile" Type="bit" />
+    <Property Name="SocialSecurityCardOnFile" Type="bit" />
+    <Property Name="Approval Status" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <Association Name="FK_ApprovalStatus_ApprovalStatus">
+    <End Role="ApprovalStatus" Type="Self.ApprovalStatus" Multiplicity="1" />
+    <End Role="ApprovalStatus1" Type="Self.ApprovalStatus" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ApprovalStatus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ApprovalStatus1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeToOpportunity_Opportunities">
+    <End Role="Opportunities" Type="Self.Opportunities" Multiplicity="1" />
+    <End Role="EmployeeToOpportunity" Type="Self.EmployeeToOpportunity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Opportunities">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmployeeToOpportunity">
+        <PropertyRef Name="OpportunityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeToOpportunity_Volunteer">
+    <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+    <End Role="EmployeeToOpportunity" Type="Self.EmployeeToOpportunity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmployeeToOpportunity">
+        <PropertyRef Name="VolunteerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Volunteer_ApprovalStatus">
+    <End Role="ApprovalStatus" Type="Self.ApprovalStatus" Multiplicity="1" />
+    <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApprovalStatus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Volunteer">
+        <PropertyRef Name="Approval Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SampleMembershipDBModelStoreContainer">
+    <EntitySet Name="ApprovalStatus" EntityType="Self.ApprovalStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeToOpportunity" EntityType="Self.EmployeeToOpportunity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Opportunities" EntityType="Self.Opportunities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Volunteer" EntityType="Self.Volunteer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ApprovalStatus_ApprovalStatus" Association="Self.FK_ApprovalStatus_ApprovalStatus">
+      <End Role="ApprovalStatus" EntitySet="ApprovalStatus" />
+      <End Role="ApprovalStatus1" EntitySet="ApprovalStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeToOpportunity_Opportunities" Association="Self.FK_EmployeeToOpportunity_Opportunities">
+      <End Role="Opportunities" EntitySet="Opportunities" />
+      <End Role="EmployeeToOpportunity" EntitySet="EmployeeToOpportunity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeToOpportunity_Volunteer" Association="Self.FK_EmployeeToOpportunity_Volunteer">
+      <End Role="Volunteer" EntitySet="Volunteer" />
+      <End Role="EmployeeToOpportunity" EntitySet="EmployeeToOpportunity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Volunteer_ApprovalStatus" Association="Self.FK_Volunteer_ApprovalStatus">
+      <End Role="ApprovalStatus" EntitySet="ApprovalStatus" />
+      <End Role="Volunteer" EntitySet="Volunteer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

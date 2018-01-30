@@ -1,0 +1,66 @@
+﻿@model SampleMembership.Models.Answer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Answer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnsText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnsText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedByUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyXQuestion.SXQID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyXQuestion.SXQID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnswerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

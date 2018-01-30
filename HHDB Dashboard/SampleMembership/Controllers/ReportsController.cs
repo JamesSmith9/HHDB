@@ -13,7 +13,6 @@ namespace SampleMembership.Controllers
         {
             return View();
         }
-
         public ActionResult PieChart()
         {
             return View();
@@ -24,14 +23,6 @@ namespace SampleMembership.Controllers
             return View();
         }
 
-        public ActionResult Import()
-        {
-            return View("~/Views/import/Index.cshtml");
-        }
 
-        public ActionResult CreateGraph()
-        {
-            return View();
-        }
     }
 }

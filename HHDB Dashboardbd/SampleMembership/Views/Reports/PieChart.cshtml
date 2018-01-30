@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "PieChart";
+}
+
+<h2>PieChart</h2>
+
+@using Highsoft.Web.Mvc.Charts
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Highcharts Example</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
+
+    <script type="text/javascript">
+
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Percentage of Surveys',
+        colorByPoint: true,
+        data: [{
+            name: 'Rated 5',
+            y: 56.33
+        }, {
+            name: 'Rated 4',
+            y: 24.03,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Rated 3',
+            y: 10.38
+        }, {
+            name: 'Rated 2',
+            y: 4.77
+        }, {
+            name: 'Rated 1',
+            y: 0.91
+        }, {
+            name: 'Rated N/A',
+            y: 0.2
+        }]
+    }]
+});
+    </script>
+    @Html.ActionLink("Back to Create Graph", "CreateGraph")
+    @Html.ActionLink("Back to Reports", "Index")
+    
+</body>
+

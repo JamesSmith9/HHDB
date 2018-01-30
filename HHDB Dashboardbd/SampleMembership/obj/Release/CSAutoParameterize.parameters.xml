@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="SampleMembershipDB-Web.config Connection String" description="SampleMembershipDB Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:senprojhhdb.database.windows.net,1433;Initial Catalog=HHDB;Persist Security Info=False;User ID=HHDB;Password=S3niorproject;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Cord\\Desktop\\Git4\\HHDB\\HHDB\ Dashboard\\SampleMembership\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SampleMembershipDB']/@connectionString" />
+  </parameter>
+  <parameter name="HHDBEntities-Web.config Connection String" description="HHDBEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Model.csdl|&#xD;&#xA;         res://*/Models.Model.ssdl|&#xD;&#xA;         res://*/Models.Model.msl;&#xD;&#xA;         provider=System.Data.SqlClient;&#xD;&#xA;         provider connection string=&quot;data source=tcp:senprojhhdb.database.windows.net,1433;&#xD;&#xA;         initial catalog=HHDB;&#xD;&#xA;         integrated security=False;&#xD;&#xA;         User ID=HHDB;Password=S3niorproject;&#xD;&#xA;         MultipleActiveResultSets=True;&#xD;&#xA;         App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Cord\\Desktop\\Git4\\HHDB\\HHDB\ Dashboard\\SampleMembership\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='HHDBEntities']/@connectionString" />
+  </parameter>
+</parameters>

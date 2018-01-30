@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HHDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SurveyXQuestions" Relationship="Self.FK_SurveyXQuestion_Question" FromRole="Question" ToRole="SurveyXQuestion" />
+    <Property Name="QuestionType" Type="Int16" />
+  </EntityType>
+  <EntityType Name="Survey">
+    <Key>
+      <PropertyRef Name="SurveyID" />
+    </Key>
+    <Property Name="SurveyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SurveyXQuestions" Relationship="Self.FK_SurveyXQuestion_Survey" FromRole="Survey" ToRole="SurveyXQuestion" />
+  </EntityType>
+  <EntityType Name="SurveyXQuestion">
+    <Key>
+      <PropertyRef Name="SXQID" />
+    </Key>
+    <Property Name="SXQID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="SurveyID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_SurveyXQuestion_Question" FromRole="SurveyXQuestion" ToRole="Question" />
+    <NavigationProperty Name="Survey" Relationship="Self.FK_SurveyXQuestion_Survey" FromRole="SurveyXQuestion" ToRole="Survey" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Answers" Relationship="HHDBModel.FK_Answer_SurveyXQuestion" FromRole="SurveyXQuestion" ToRole="Answer" />
+  </EntityType>
+  <Association Name="FK_SurveyXQuestion_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="SurveyXQuestion" Type="Self.SurveyXQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="SurveyXQuestion">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyXQuestion_Survey">
+    <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
+    <End Role="SurveyXQuestion" Type="Self.SurveyXQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Survey">
+        <PropertyRef Name="SurveyID" />
+      </Principal>
+      <Dependent Role="SurveyXQuestion">
+        <PropertyRef Name="SurveyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HHDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Surveys" EntityType="Self.Survey" />
+    <EntitySet Name="SurveyXQuestions" EntityType="Self.SurveyXQuestion" />
+    <AssociationSet Name="FK_SurveyXQuestion_Question" Association="Self.FK_SurveyXQuestion_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="SurveyXQuestion" EntitySet="SurveyXQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyXQuestion_Survey" Association="Self.FK_SurveyXQuestion_Survey">
+      <End Role="Survey" EntitySet="Surveys" />
+      <End Role="SurveyXQuestion" EntitySet="SurveyXQuestions" />
+    </AssociationSet>
+    <EntitySet Name="Answers" EntityType="HHDBModel.Answer" />
+    <AssociationSet Name="FK_Answer_SurveyXQuestion" Association="HHDBModel.FK_Answer_SurveyXQuestion">
+      <End Role="SurveyXQuestion" EntitySet="SurveyXQuestions" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="AnswerID" />
+    </Key>
+    <Property Name="SXQID" Type="Int32" Nullable="false" />
+    <Property Name="AnsText" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedByUser" Type="Guid" Nullable="false" />
+    <Property Name="AnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Month" Type="Int16" Nullable="false" />
+    <Property Name="Year" Type="Int16" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SurveyXQuestion" Relationship="HHDBModel.FK_Answer_SurveyXQuestion" FromRole="Answer" ToRole="SurveyXQuestion" />
+  </EntityType>
+  <Association Name="FK_Answer_SurveyXQuestion">
+    <End Type="HHDBModel.SurveyXQuestion" Role="SurveyXQuestion" Multiplicity="1" />
+    <End Type="HHDBModel.Answer" Role="Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SurveyXQuestion">
+        <PropertyRef Name="SXQID" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="SXQID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

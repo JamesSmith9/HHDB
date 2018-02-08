@@ -21,21 +21,6 @@ namespace SampleMembership.Controllers
             return View(aspnet_Membership.ToList());
         }
 
-        // GET: aspnet_Membership/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
-            if (aspnet_Membership == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aspnet_Membership);
-        }
-
         // GET: aspnet_Membership/Create
         public ActionResult Create()
         {

@@ -345,7 +345,6 @@
     <Content Include="Views\aspnet_Users\Index.cshtml" />
     <Content Include="Views\aspnet_Membership\Create.cshtml" />
     <Content Include="Views\aspnet_Membership\Delete.cshtml" />
-    <Content Include="Views\aspnet_Membership\Details.cshtml" />
     <Content Include="Views\aspnet_Membership\Edit.cshtml" />
     <Content Include="Views\aspnet_Membership\Index.cshtml" />
   </ItemGroup>

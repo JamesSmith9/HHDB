@@ -11,133 +11,36 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordFormat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordSalt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MobilePIN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoweredEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordQuestion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordAnswer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </th>
+      
+      
         <th>
             @Html.DisplayNameFor(model => model.IsLockedOut)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
+      
         <th>
             @Html.DisplayNameFor(model => model.LastLoginDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastPasswordChangedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastLockoutDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FailedPasswordAttemptCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FailedPasswordAttemptWindowStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FailedPasswordAnswerAttemptCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FailedPasswordAnswerAttemptWindowStart)
-        </th>
+        </th>   
         <th>
             @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.aspnet_Applications.ApplicationName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.aspnet_Applications1.ApplicationName)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.aspnet_Users.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.aspnet_Users1.UserName)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordFormat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordSalt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MobilePIN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoweredEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordQuestion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordAnswer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsApproved)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.IsLockedOut)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.LastLoginDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastPasswordChangedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastLockoutDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FailedPasswordAttemptCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FailedPasswordAttemptWindowStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FailedPasswordAnswerAttemptCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FailedPasswordAnswerAttemptWindowStart)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Comment)
@@ -146,18 +49,10 @@
             @Html.DisplayFor(modelItem => item.aspnet_Applications.ApplicationName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.aspnet_Applications1.ApplicationName)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.aspnet_Users.UserName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.aspnet_Users1.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId })
         </td>
     </tr>
 }

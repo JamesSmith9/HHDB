@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Security;
 
 namespace SampleMembership.Models
 {
@@ -41,6 +42,9 @@ namespace SampleMembership.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //Add list of roles to be applied to a user when they are created
+        
     }
 
     public class ResetPasswordViewModel

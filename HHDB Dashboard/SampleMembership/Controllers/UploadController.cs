@@ -31,8 +31,8 @@ namespace SampleMembership.Controllers
             int Month = Convert.ToInt32(Request["month"].ToString());
             int Year = Convert.ToInt32(Request["year"].ToString());
             MembershipUser u = Membership.GetUser();
-            Guid user = (Guid) u.ProviderUserKey;
-           //Guid user = new Guid("83e8a966-e8b8-4f15-a03d-1de51f573c8f");
+            Guid user = (Guid)u.ProviderUserKey;
+            //Guid user = new Guid("83e8a966-e8b8-4f15-a03d-1de51f573c8f");
 
             int s1q1y = Convert.ToInt32(Request["s1q1y"].ToString());
             int s1q1n = Convert.ToInt32(Request["s1q1n"].ToString());
@@ -211,13 +211,7 @@ namespace SampleMembership.Controllers
             int s1q354 = Convert.ToInt32(Request["s1q354"].ToString());
             int s1q355 = Convert.ToInt32(Request["s1q355"].ToString());
 
-            List<string> s1qc = new List<string>();
-            string rawStr = Request["myInputs[]"].ToString();
-            string[] str = rawStr.Split(',');
-            foreach(string s in str)
-            { 
-            s1qc.Add(s);
-            }
+
 
 
 
@@ -403,10 +397,28 @@ namespace SampleMembership.Controllers
                 AnswerSqlHandler(35, "4", user, Month, Year, s1q354, conn);
                 AnswerSqlHandler(35, "5", user, Month, Year, s1q355, conn);
 
-                foreach(string s in s1qc)
-                {
-                    AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
-                }
+
+
+                    List<string> s1qc = new List<string>();
+                    string rawStr = Request["myInputs[]"].ToString();
+                    string[] str = rawStr.Split(',');
+                    foreach (string s in str)
+                    {
+                        if (s != null)
+                        {
+                            s1qc.Add(s);
+                        }
+                    }
+
+                    foreach (string s in s1qc)
+                    {
+                        if (s != null)
+                        {
+                            AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
+                        }
+                    }
+
+
 
 
             }
@@ -436,7 +448,7 @@ namespace SampleMembership.Controllers
 
         public void AnswerSqlHandler (int SXQID, string AnsText, Guid user, int Month, int Year, int Quantity, SqlConnection conn)
         {
-            if (Quantity != 0 && AnsText != null)
+            if (Quantity != 0 && AnsText != null && AnsText != "")
             {
 
 

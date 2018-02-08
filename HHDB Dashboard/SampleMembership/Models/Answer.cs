@@ -23,6 +23,5 @@ namespace SampleMembership.Models
         public int Quantity { get; set; }
     
         public virtual SurveyXQuestion SurveyXQuestion { get; set; }
-        public virtual aspnet_Users aspnet_Users { get; set; }
     }
 }

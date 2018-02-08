@@ -12,24 +12,6 @@
         <AssociationConnector Association="HHDBModel.FK_SurveyXQuestion_Survey" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HHDBModel.Answer" Width="1.5" PointX="5.25" PointY="0.75" />
         <AssociationConnector Association="HHDBModel.FK_Answer_SurveyXQuestion" />
-        <EntityTypeShape EntityType="HHDBModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="4.25" />
-        <EntityTypeShape EntityType="HHDBModel.aspnet_Membership" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="HHDBModel.aspnet_Roles" Width="1.5" PointX="3" PointY="21.125" />
-        <EntityTypeShape EntityType="HHDBModel.aspnet_Users" Width="1.5" PointX="3" PointY="3.75" />
-        <EntityTypeShape EntityType="HHDBModel.aspnet_UsersInRoles" Width="1.5" PointX="5.25" PointY="12.75" />
-        <AssociationConnector Association="HHDBModel.FK_Answer_aspnet_Users" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__Appli__1DB06A4F" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__Appli__1EA48E88" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Ro__Appli__2B0A656D" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Ro__Appli__2BFE89A6" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__Appli__2CF2ADDF" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__Appli__2DE6D218" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__UserI__1F98B2C1" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__UserI__208CD6FA" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__RoleI__2EDAF651" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__RoleI__2FCF1A8A" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__UserI__30C33EC3" />
-        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__UserI__31B762FC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

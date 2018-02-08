@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
@@ -17,8 +18,8 @@ namespace SampleMembership.Controllers
         // GET: aspnet_Membership
         public ActionResult Index()
         {
-            var aspnet_Membership = db.aspnet_Membership.Include(a => a.aspnet_Applications).Include(a => a.aspnet_Applications1).Include(a => a.aspnet_Users).Include(a => a.aspnet_Users1);
-            return View(aspnet_Membership.ToList());
+            var aspnet_Membership = db.aspnet_Membership.ToList();
+            return View(aspnet_Membership);
         }
 
         // GET: aspnet_Membership/Create
@@ -36,11 +37,25 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplicationId,UserId,Password,PasswordFormat,PasswordSalt,MobilePIN,Email,LoweredEmail,PasswordQuestion,PasswordAnswer,IsApproved,IsLockedOut,CreateDate,LastLoginDate,LastPasswordChangedDate,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Create([Bind(Include = "ApplicationId,UserId,Password,Email,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
-                aspnet_Membership.UserId = Guid.NewGuid();
+                aspnet_Users user = new aspnet_Users();
+                user.UserName = aspnet_Membership.UserName;
+                user.LoweredUserName = aspnet_Membership.UserName.ToLower();
+                user.UserId = new Guid();
+                db.aspnet_Users.Add(user);
+                db.SaveChanges();
+
+                aspnet_Membership.CreateDate = DateTime.Now;
+                aspnet_Membership.PasswordFormat = 1;
+                aspnet_Membership.PasswordSalt = DateTime.Now.ToString();
+                aspnet_Membership.CreateDate = DateTime.Now;
+                aspnet_Membership.UserId = user.UserId;
+                aspnet_Membership.aspnet_Applications =
+                    db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System");
+
                 db.aspnet_Membership.Add(aspnet_Membership);
                 db.SaveChanges();
                 return RedirectToAction("Index");

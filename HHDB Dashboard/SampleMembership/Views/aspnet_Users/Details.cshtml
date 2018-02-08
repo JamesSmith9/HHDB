@@ -1,0 +1,90 @@
+﻿@model SampleMembership.Models.aspnet_Users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>aspnet_Users</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoweredUserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoweredUserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileAlias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileAlias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAnonymous)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAnonymous)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastActivityDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastActivityDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aspnet_Applications.ApplicationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aspnet_Applications.ApplicationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aspnet_Applications1.ApplicationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aspnet_Applications1.ApplicationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aspnet_Membership.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aspnet_Membership.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aspnet_Membership1.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aspnet_Membership1.Password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

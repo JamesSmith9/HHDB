@@ -172,6 +172,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
+    <Compile Include="Controllers\aspnet_MembershipController.cs" />
+    <Compile Include="Controllers\aspnet_UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -184,6 +186,21 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Applications.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Roles.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Users.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_UsersInRoles.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -321,6 +338,16 @@
     <Content Include="Views\Answers\Index.cshtml" />
     <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Import\Form1.cshtml" />
+    <Content Include="Views\aspnet_Users\Create.cshtml" />
+    <Content Include="Views\aspnet_Users\Delete.cshtml" />
+    <Content Include="Views\aspnet_Users\Details.cshtml" />
+    <Content Include="Views\aspnet_Users\Edit.cshtml" />
+    <Content Include="Views\aspnet_Users\Index.cshtml" />
+    <Content Include="Views\aspnet_Membership\Create.cshtml" />
+    <Content Include="Views\aspnet_Membership\Delete.cshtml" />
+    <Content Include="Views\aspnet_Membership\Details.cshtml" />
+    <Content Include="Views\aspnet_Membership\Edit.cshtml" />
+    <Content Include="Views\aspnet_Membership\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

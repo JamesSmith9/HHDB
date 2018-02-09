@@ -29,5 +29,10 @@ namespace SampleMembership.Models
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyXQuestion> SurveyXQuestions { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<aspnet_Applications> aspnet_Applications { get; set; }
+        public virtual DbSet<aspnet_Membership> aspnet_Membership { get; set; }
+        public virtual DbSet<aspnet_Roles> aspnet_Roles { get; set; }
+        public virtual DbSet<aspnet_Users> aspnet_Users { get; set; }
+        public virtual DbSet<aspnet_UsersInRoles> aspnet_UsersInRoles { get; set; }
     }
 }

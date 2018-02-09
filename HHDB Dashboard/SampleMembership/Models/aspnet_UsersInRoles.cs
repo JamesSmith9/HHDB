@@ -12,17 +12,14 @@ namespace SampleMembership.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Answer
+    public partial class aspnet_UsersInRoles
     {
-        public int SXQID { get; set; }
-        public string AnsText { get; set; }
-        public System.Guid CreatedByUser { get; set; }
-        public int AnswerID { get; set; }
-        public short Month { get; set; }
-        public short Year { get; set; }
-        public int Quantity { get; set; }
+        public System.Guid UserId { get; set; }
+        public System.Guid RoleId { get; set; }
     
-        public virtual SurveyXQuestion SurveyXQuestion { get; set; }
+        public virtual aspnet_Roles aspnet_Roles { get; set; }
+        public virtual aspnet_Roles aspnet_Roles1 { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
+        public virtual aspnet_Users aspnet_Users1 { get; set; }
     }
 }

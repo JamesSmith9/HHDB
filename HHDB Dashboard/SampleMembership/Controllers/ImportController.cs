@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+using System.Data.SqlClient;
 using System.Web.Mvc;
-using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
 {
     public class ImportController : Controller
     {
-        private HHDBEntities db = new HHDBEntities();
-
-        //GET: Import/InputForm
-        public ActionResult InputForm() => View(db.Questions.ToList());
-
         // GET: Import
-        public ActionResult Index() => View(db.Surveys.ToList());
-
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         // GET: Import/Form1
         public ActionResult Form1()
@@ -27,7 +20,7 @@ namespace SampleMembership.Controllers
             return View();
         }
 
-
+       
 
     }
 }

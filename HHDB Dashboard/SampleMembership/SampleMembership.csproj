@@ -338,9 +338,6 @@
     <Content Include="Views\Answers\Index.cshtml" />
     <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Import\Form1.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Import\InputForm.cshtml" />
-=======
     <Content Include="Views\aspnet_Users\Create.cshtml" />
     <Content Include="Views\aspnet_Users\Delete.cshtml" />
     <Content Include="Views\aspnet_Users\Details.cshtml" />
@@ -350,7 +347,6 @@
     <Content Include="Views\aspnet_Membership\Delete.cshtml" />
     <Content Include="Views\aspnet_Membership\Edit.cshtml" />
     <Content Include="Views\aspnet_Membership\Index.cshtml" />
->>>>>>> e8998409857eddc3d2bebe8e92bb31ec1dd8082f
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,9 +29,8 @@
             @Html.DisplayFor(modelItem => item.Active)
         </td>
         <td>
-            @Html.ActionLink("Edit Survey", "Edit", new { id = item.SurveyID }) |
-            @Html.ActionLink("Questions", "Details", new { id = item.SurveyID }) |
-            @Html.ActionLink("Answers", "../Answers/Index")
+            @Html.ActionLink("Edit Survey", "Edit", new { id=item.SurveyID }) |
+            @Html.ActionLink("Questions", "Details", new { id=item.SurveyID }) 
         </td>
     </tr>
 }

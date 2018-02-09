@@ -1,20 +1,39 @@
-﻿@{
+﻿@model IEnumerable<SampleMembership.Models.Survey>
+
+@{
     ViewBag.Title = "Index";
 }
 <h2>Import Data</h2>
 
-
 <br />
-<ul>
-    <li>@Html.ActionLink("Resident Exit Interview/Satisfaction Survey", "Form1", "Import")</li>
-    <li>@Html.ActionLink("Adult Outreach Satisfaction Survey/Exit Interview", "Form2", "Import")</li>
-    <li>@Html.ActionLink("InVEST Satisfaction Survey/Exit Interview", "Form3", "Import")</li>
-    <li>@Html.ActionLink("Baker County Satisfaction Survey/Exit Interview", "Form4", "Import")</li>
-    <li>@Html.ActionLink("Court Advocacy Satisfaction Survey/Exit Interview", "Form5", "Import")</li>
-</ul>
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </td>
+            <td>
+                @Html.ActionLink("Go", "InputForm", "Import", new { id = item.SurveyID })
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+
+    <br />
+    <ul>
+        <li>@Html.ActionLink("Resident Exit Interview/Satisfaction Survey", "Form1", "Import")</li>
+        <li>@Html.ActionLink("Adult Outreach Satisfaction Survey/Exit Interview", "InputForm", "Import", new { SurveyID = 2 })</li>
+        <li>@Html.ActionLink("InVEST Satisfaction Survey/Exit Interview", "Form3", "Import")</li>
+        <li>@Html.ActionLink("Baker County Satisfaction Survey/Exit Interview", "Form4", "Import")</li>
+        <li>@Html.ActionLink("Court Advocacy Satisfaction Survey/Exit Interview", "Form5", "Import")</li>
+    </ul>
 
 
-
-
-@Html.ActionLink("Answers", "Index", "Answers")
-<br />
+    @Html.ActionLink("Answers", "Index", "Answers")
+    <br />

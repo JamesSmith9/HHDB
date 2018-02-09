@@ -321,6 +321,7 @@
     <Content Include="Views\Answers\Index.cshtml" />
     <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Import\Form1.cshtml" />
+    <Content Include="Views\Import\InputForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

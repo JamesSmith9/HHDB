@@ -24,6 +24,70 @@ namespace SampleMembership.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult InputForm(object sender, EventArgs e)
+        {
+            int Month = Convert.ToInt32(Request["month"].ToString());
+            int Year = Convert.ToInt32(Request["year"].ToString());
+            MembershipUser u = Membership.GetUser();
+            Guid user = (Guid)u.ProviderUserKey;
+
+
+            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
+            SqlConnection conn = null;
+            try
+            {
+                conn = new SqlConnection(connString);
+                conn.Open();
+
+
+
+
+
+
+
+                List<string> qc = new List<string>();
+                string rawStrC = Request["myInputs[]"].ToString();
+                string[] strc = rawStrC.Split(',');
+                foreach (string s in strc)
+                {
+                    if (s != null)
+                    {
+                        qc.Add(s);
+                    }
+                }
+
+                foreach (string s in qc)
+                {
+                    if (s != null)
+                    {
+                        AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string a = ex.ToString();
+                //log error 
+                //display friendly error to user
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+
+            return View("Upload");
+        }
+
+
+
+
         [HttpPost]
         public ActionResult Form1(object sender, EventArgs e)
         {

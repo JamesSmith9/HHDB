@@ -1,7 +1,25 @@
-﻿@{
+﻿@model IEnumerable<SampleMembership.Models.Survey>
+
+@{
     ViewBag.Title = "Index";
 }
 <h2>Import Data</h2>
+
+
+<table class="table">
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+
+        <td>
+            @Html.ActionLink("Import", "ImportForm", new { id = item.SurveyID })
+        </td>
+    </tr>
+}
+</table>
 
 
 <br />

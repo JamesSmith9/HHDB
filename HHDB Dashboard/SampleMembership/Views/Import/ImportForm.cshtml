@@ -1,0 +1,64 @@
+﻿@model SampleMembership.Models.Survey
+
+@{
+    ViewBag.Title = "Import Form";
+}
+
+<h2>@Model.Name</h2>
+
+
+<script src="/js/addInput.js" language="Javascript" type="text/javascript"></script>
+
+@using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <form>
+        Month(1-12): <input type="text" name="month" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="year" pattern="[0-9]{4}" required />
+        <br />
+        <br />
+        <table class="table">
+            @foreach (var item in Model.SurveyQuestions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QText)
+                    </td>
+
+                    <td>
+                        @if (item.QuestionType == 1)
+                        {
+                            @:Yes  <input type="number" name="yes[]" value="0" min="0" max="9999" />&nbsp; &nbsp; &nbsp;
+                            @:No   <input type="number" name="no[]" value="0" min="0" max="9999" />
+                        }
+
+                        @if (item.QuestionType == 2)
+                        {
+                            @:Number of 1 responses  <input type = "number" name = "1[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 2 responses  <input type = "number" name = "2[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 3 responses  <input type = "number" name = "3[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 4 responses  <input type = "number" name = "4[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 5 responses  <input type = "number" name = "5[]" value = "0" min = "0" max = "9999" />
+                        }
+
+                        @if (item.QuestionType == 3)
+                        {
+                            @:<div id="dynamicInput">Comment 1<br /><input type="text" name="myInputs[]"></div><br />
+                            @:<input type="button" value="Add another comment input" onClick="addInput('dynamicInput');">
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <br />
+
+        
+
+        <br />
+        <br />
+        <br />
+        <button>Submit</button>
+    </form>
+}
+
+

@@ -347,6 +347,7 @@
     <Content Include="Views\aspnet_Membership\Delete.cshtml" />
     <Content Include="Views\aspnet_Membership\Edit.cshtml" />
     <Content Include="Views\aspnet_Membership\Index.cshtml" />
+    <Content Include="Views\Import\ImportForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

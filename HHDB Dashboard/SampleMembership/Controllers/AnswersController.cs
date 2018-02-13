@@ -15,9 +15,30 @@ namespace SampleMembership.Controllers
         private HHDBEntities db = new HHDBEntities();
 
         // GET: Answers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Year" ? "date_desc" : "Year";
             var answers = db.Answers.Include(a => a.SurveyXQuestion);
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    answers = answers.OrderByDescending(a => a.Year);
+                    break;
+
+                case "Year":
+                    answers = answers.OrderBy(a => a.Month);
+                    break;
+
+                case "date_desc":
+                    answers = answers.OrderByDescending(a => a.Month);
+                    break;
+                default:
+                    answers = answers.OrderBy(a => a.Year);
+                    break;
+
+            }
             return View(answers.ToList());
         }
 
@@ -128,5 +149,6 @@ namespace SampleMembership.Controllers
             }
             base.Dispose(disposing);
         }
+     
     }
 }

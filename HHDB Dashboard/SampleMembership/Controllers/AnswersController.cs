@@ -8,30 +8,47 @@ using System.Web;
 using System.Web.Mvc;
 using SampleMembership.Models;
 
+
 namespace SampleMembership.Controllers
 {
     public class AnswersController : Controller
     {
         private HHDBEntities db = new HHDBEntities();
 
+       
         // GET: Answers
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string search)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Year" ? "date_desc" : "Year";
+            //Sorting Anwers
+            //Year
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Year_desc" : "";
+            //Month
+            ViewBag.MonthSortParm = sortOrder == "Month" ? "month_desc" : "Month";
+            //Create by user
+            ViewBag.CreateSortParm = sortOrder == "Create" ? "create_desc" : "Create";
             var answers = db.Answers.Include(a => a.SurveyXQuestion);
+
+            
 
             switch (sortOrder)
             {
-                case "name_desc":
+                case "Year_desc":
                     answers = answers.OrderByDescending(a => a.Year);
                     break;
 
-                case "Year":
+                case "Month":
                     answers = answers.OrderBy(a => a.Month);
                     break;
 
-                case "date_desc":
+              case "create_desc":
+                    answers = answers.OrderByDescending(a => a.CreatedByUser);
+                    break;
+
+                case "Create":
+                    answers = answers.OrderBy(a => a.CreatedByUser);
+                    break;
+
+                case "month_desc":
                     answers = answers.OrderByDescending(a => a.Month);
                     break;
                 default:

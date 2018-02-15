@@ -15,10 +15,10 @@
            Answer
         </th>
         <th>
-            Created By User:
+            @Html.ActionLink("Create By", "Index", new { sortOrder = ViewBag.CreateSortParm })
         </th>
         <th>
-            @Html.ActionLink("Month", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Month", "Index", new { sortOrder = ViewBag.MonthSortParm })
         </th>
         <th>
            @Html.ActionLink("Year", "Index", new { sortOrder = ViewBag.NameSortParm})

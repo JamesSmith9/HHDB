@@ -17,7 +17,7 @@ namespace SampleMembership.Controllers
         // GET: aspnet_Users
         public ActionResult Index()
         {
-            var aspnet_Users = db.aspnet_Users.Include(a => a.aspnet_Applications).Include(a => a.aspnet_Applications1).Include(a => a.aspnet_Membership).Include(a => a.aspnet_Membership1);
+            var aspnet_Users = db.aspnet_Users.Include(a => a.aspnet_Applications).Include(a => a.aspnet_Applications1).Include(a => a.aspnet_Membership);
             return View(aspnet_Users.ToList());
         }
 
@@ -26,15 +26,11 @@ namespace SampleMembership.Controllers
         public ActionResult Create()
         {
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
-            ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
-            ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password");
             ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password");
             return View();
         }
 
-        // POST: aspnet_Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ApplicationId,UserId,UserName,LoweredUserName,MobileAlias,IsAnonymous,LastActivityDate")] aspnet_Users aspnet_Users)
@@ -48,8 +44,6 @@ namespace SampleMembership.Controllers
             }
 
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             return View(aspnet_Users);
         }
@@ -67,15 +61,11 @@ namespace SampleMembership.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             return View(aspnet_Users);
         }
 
-        // POST: aspnet_Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ApplicationId,UserId,UserName,LoweredUserName,MobileAlias,IsAnonymous,LastActivityDate")] aspnet_Users aspnet_Users)
@@ -87,8 +77,6 @@ namespace SampleMembership.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Users.ApplicationId);
-            ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             ViewBag.UserId = new SelectList(db.aspnet_Membership, "UserId", "Password", aspnet_Users.UserId);
             return View(aspnet_Users);
         }

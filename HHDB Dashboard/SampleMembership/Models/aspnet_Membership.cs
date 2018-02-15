@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace SampleMembership.Models
@@ -18,7 +19,9 @@ namespace SampleMembership.Models
     {
         public System.Guid ApplicationId { get; set; }
         public System.Guid UserId { get; set; }
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string Password { get; set; }
         public int PasswordFormat { get; set; }
         public string PasswordSalt { get; set; }
@@ -42,6 +45,5 @@ namespace SampleMembership.Models
         public virtual IQueryable<aspnet_Applications> aspnet_Applications { get; set; }
         public virtual aspnet_Applications aspnet_Applications1 { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
-        public virtual aspnet_Users aspnet_Users1 { get; set; }
     }
 }

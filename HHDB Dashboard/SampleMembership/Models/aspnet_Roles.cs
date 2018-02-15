@@ -18,6 +18,7 @@ namespace SampleMembership.Models
         public aspnet_Roles()
         {
             this.aspnet_UsersInRoles = new HashSet<aspnet_UsersInRoles>();
+            this.aspnet_UsersInRoles1 = new HashSet<aspnet_UsersInRoles>();
         }
     
         public System.Guid ApplicationId { get; set; }
@@ -27,8 +28,10 @@ namespace SampleMembership.Models
         public string Description { get; set; }
     
         public virtual aspnet_Applications aspnet_Applications { get; set; }
-
+        public virtual aspnet_Applications aspnet_Applications1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnet_UsersInRoles> aspnet_UsersInRoles { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<aspnet_UsersInRoles> aspnet_UsersInRoles1 { get; set; }
     }
 }

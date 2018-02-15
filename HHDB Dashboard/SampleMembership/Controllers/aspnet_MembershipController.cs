@@ -26,8 +26,6 @@ namespace SampleMembership.Controllers
         public ActionResult Create()
         {
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
-            ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
-            ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName");
             ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName");
             return View();
         }
@@ -37,7 +35,7 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplicationId,UserId,Password,Email,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Create([Bind(Include = "ApplicationId,UserName,Password,Email,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {

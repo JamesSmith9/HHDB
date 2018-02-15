@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "PieChart";
 }
-
 <h2>PieChart</h2>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -19,6 +18,31 @@
     <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
 
     <script type="text/javascript">
+
+        $(function () {
+            $.ajax({
+                url: 'Reports/PieChart',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                processData: false,
+                cache: false,
+                delay: 15,
+                success: function (data) {
+                    // alert(data);
+                    var series = new Array();
+                    for (var i in data) {
+                        var serie = new Array(data[i].Value, data[i].Item);
+                        series.push(serie);
+                    }
+                    DrawPieChart(series);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
 
 Highcharts.chart('container', {
     chart: {
@@ -73,8 +97,7 @@ Highcharts.chart('container', {
     }]
 });
     </script>
-    @Html.ActionLink("Back to Create Graph", "CreateGraph")
+
     @Html.ActionLink("Back to Reports", "Index")
 
 </body>
-

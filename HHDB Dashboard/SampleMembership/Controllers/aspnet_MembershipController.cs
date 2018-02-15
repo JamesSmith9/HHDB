@@ -44,7 +44,7 @@ namespace SampleMembership.Controllers
                 aspnet_Users user = new aspnet_Users();
                 user.UserName = aspnet_Membership.UserName;
                 user.LoweredUserName = aspnet_Membership.UserName.ToLower();
-                user.UserId = new Guid();
+                user.UserId = Guid.NewGuid();
                 db.aspnet_Users.Add(user);
                 db.SaveChanges();
 

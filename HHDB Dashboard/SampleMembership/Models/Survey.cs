@@ -31,5 +31,8 @@ namespace SampleMembership.Models
 
         [Display(Name = "Questions")]
         public List<Question> SurveyQuestions = new List<Question>();
+
+        [Display(Name = "SXQIDs")]
+        public List<SurveyXQuestion> SXQIDs = new List<SurveyXQuestion>();
     }
 }

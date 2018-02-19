@@ -13,6 +13,7 @@
     List<int> sxqArray = new List<int>();
 }
 
+
 @using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form>
@@ -22,7 +23,7 @@
         <table class="table">
             @foreach (var item in Model.SurveyQuestions)
             {
-                sxqArray.Add(1);
+                
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.QText)

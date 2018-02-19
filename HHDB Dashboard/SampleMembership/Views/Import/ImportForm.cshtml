@@ -9,6 +9,10 @@
 
 <script src="/js/addInput.js" language="Javascript" type="text/javascript"></script>
 
+@{ 
+    List<int> sxqArray = new List<int>();
+}
+
 @using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form>
@@ -18,6 +22,7 @@
         <table class="table">
             @foreach (var item in Model.SurveyQuestions)
             {
+                sxqArray.Add(1);
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.QText)
@@ -32,11 +37,11 @@
 
                         @if (item.QuestionType == 2)
                         {
-                            @:Number of 1 responses  <input type = "number" name = "1[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 2 responses  <input type = "number" name = "2[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 3 responses  <input type = "number" name = "3[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 4 responses  <input type = "number" name = "4[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 5 responses  <input type = "number" name = "5[]" value = "0" min = "0" max = "9999" />
+                            @:Number of 1 responses  <input type = "number" name = "one[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 2 responses  <input type = "number" name = "two[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 3 responses  <input type = "number" name = "three[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 4 responses  <input type = "number" name = "four[]" value = "0" min = "0" max = "9999" /> <br /> 
+                            @:Number of 5 responses  <input type = "number" name = "five[]" value = "0" min = "0" max = "9999" />
                         }
 
                         @if (item.QuestionType == 3)

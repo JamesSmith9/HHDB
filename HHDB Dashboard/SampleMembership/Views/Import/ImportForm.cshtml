@@ -13,6 +13,11 @@
     List<int> sxqArray = new List<int>();
 }
 
+@foreach (var item in Model.SXQIDs)
+{
+    sxqArray.Add(item.SXQID);
+}
+
 
 @using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

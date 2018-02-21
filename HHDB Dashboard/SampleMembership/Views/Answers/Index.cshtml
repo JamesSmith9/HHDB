@@ -12,8 +12,9 @@
     @using (Html.BeginForm())
     {
 <p>
-   
-     Search: @Html.TextBox("search")
+    Search Month: @Html.TextBox("month")
+    Search Year: @Html.TextBox("search")
+    Search Question: @Html.TextBox("question")
     <input type="submit" value="Filter" />
 </p>
 }

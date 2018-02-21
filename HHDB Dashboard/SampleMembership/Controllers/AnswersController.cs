@@ -17,7 +17,7 @@ namespace SampleMembership.Controllers
 
        
         // GET: Answers
-        public ActionResult Index(string sortOrder, int? search)
+        public ActionResult Index(string sortOrder, int? search, int? month, int? question)
         {
 
             
@@ -37,7 +37,17 @@ namespace SampleMembership.Controllers
                 answers = answers.Where(a => a.Year ==(search));
             }
 
-            
+            //search month
+            if (month != null)
+            {
+                answers = answers.Where(a => a.Month == (month));
+            }
+
+            //search question
+            if (question != null)
+            {
+                answers = answers.Where(a => a.SXQID == (question));
+            }
 
             //Sort by Month, Year, User
             switch (sortOrder)

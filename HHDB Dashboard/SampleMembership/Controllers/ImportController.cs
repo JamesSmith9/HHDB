@@ -38,25 +38,18 @@ namespace SampleMembership.Controllers
             }
 
             // Gets Active and Inactive Survey Questions
-            using (db)
-            {
-                survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question)
-                .ToList();
-            }
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+                .Select(x => x.Question).ToList();
 
-            using (db)
-            {
-                survey.SXQIDs = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .ToList();
-            }
+
+            survey.SXQIDs = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID).ToList();
 
 
 
             return View(survey);
-            
+
         }
-       
+
 
     }
 }

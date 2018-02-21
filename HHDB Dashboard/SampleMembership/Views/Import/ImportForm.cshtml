@@ -1,5 +1,6 @@
 ﻿@model SampleMembership.Models.Survey
 
+
 @{
     ViewBag.Title = "Import Form";
 }
@@ -9,17 +10,8 @@
 
 <script src="/js/addInput.js" language="Javascript" type="text/javascript"></script>
 
-@{ 
-    List<int> sxqArray = new List<int>();
-}
 
-@foreach (var item in Model.SXQIDs)
-{
-    sxqArray.Add(item.SXQID);
-}
-
-
-@using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ImportForm", "Upload", Model, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form>
         Month(1-12): <input type="text" name="month" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="year" pattern="[0-9]{4}" required />
@@ -28,7 +20,7 @@
         <table class="table">
             @foreach (var item in Model.SurveyQuestions)
             {
-                
+
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.QText)
@@ -43,11 +35,11 @@
 
                         @if (item.QuestionType == 2)
                         {
-                            @:Number of 1 responses  <input type = "number" name = "one[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 2 responses  <input type = "number" name = "two[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 3 responses  <input type = "number" name = "three[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 4 responses  <input type = "number" name = "four[]" value = "0" min = "0" max = "9999" /> <br /> 
-                            @:Number of 5 responses  <input type = "number" name = "five[]" value = "0" min = "0" max = "9999" />
+                            @:Number of 1 responses  <input type="number" name="one[]" value="0" min="0" max="9999" /> <br />
+                            @:Number of 2 responses  <input type="number" name="two[]" value="0" min="0" max="9999" /> <br />
+                            @:Number of 3 responses  <input type="number" name="three[]" value="0" min="0" max="9999" /> <br />
+                            @:Number of 4 responses  <input type="number" name="four[]" value="0" min="0" max="9999" /> <br />
+                            @:Number of 5 responses  <input type="number" name="five[]" value="0" min="0" max="9999" />
                         }
 
                         @if (item.QuestionType == 3)
@@ -63,7 +55,7 @@
         <br />
         <br />
 
-        
+
 
         <br />
         <br />

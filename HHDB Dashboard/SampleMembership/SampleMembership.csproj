@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnsHandle.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

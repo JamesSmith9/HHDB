@@ -25,65 +25,188 @@ namespace SampleMembership.Controllers
         }
 
 
+
+
         [HttpPost]
-        public ActionResult InputForm(object sender, EventArgs e)
+        public ActionResult ImportForm(Survey model)
         {
+
             int Month = Convert.ToInt32(Request["month"].ToString());
             int Year = Convert.ToInt32(Request["year"].ToString());
             MembershipUser u = Membership.GetUser();
             Guid user = (Guid)u.ProviderUserKey;
 
+            int yN = 0;
+            int oneFive = 0;
+            int comm = 0;
+            int yNCount = 0;
+            int oFCount = 0;
+            int cCount = 0;
 
-            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-            SqlConnection conn = null;
-            try
+            List<int> sxqArray = new List<int>();
+            foreach (var item in model.SXQIDs)
             {
-                conn = new SqlConnection(connString);
-                conn.Open();
+                sxqArray.Add(item.SXQID);
+            }
 
-
-
-
-
-
-
-                List<string> qc = new List<string>();
-                string rawStrC = Request["myInputs[]"].ToString();
-                string[] strc = rawStrC.Split(',');
-                foreach (string s in strc)
+            foreach (var item in model.SurveyQuestions)
+            {
+                if (item.QuestionType == 1)
                 {
-                    if (s != null)
+                    yN++;
+                }
+                if (item.QuestionType == 2)
+                {
+                    oneFive++;
+                }
+                if (item.QuestionType == 3)
+                {
+                    comm++;
+                }
+            }
+
+            List<string> qY = new List<string>();
+            string rawStrY = Request["yes[]"].ToString();
+            string[] strY = rawStrY.Split(',');
+            foreach (string s in strY)
+            {
+                if (s != null)
+                {
+                    qY.Add(s);
+                }
+            }
+
+            List<string> qN = new List<string>();
+            string rawStrN = Request["no[]"].ToString();
+            string[] strN = rawStrN.Split(',');
+            foreach (string s in strN)
+            {
+                if (s != null)
+                {
+                    qN.Add(s);
+                }
+            }
+
+            List<string> qOne = new List<string>();
+            string rawStrOne = Request["one[]"].ToString();
+            string[] strOne = rawStrOne.Split(',');
+            foreach (string s in strOne)
+            {
+                if (s != null)
+                {
+                    qOne.Add(s);
+                }
+            }
+
+            List<string> qTwo = new List<string>();
+            string rawStrTwo = Request["two[]"].ToString();
+            string[] strTwo = rawStrTwo.Split(',');
+            foreach (string s in strTwo)
+            {
+                if (s != null)
+                {
+                    qTwo.Add(s);
+                }
+            }
+
+            List<string> qThr = new List<string>();
+            string rawStrThr = Request["three[]"].ToString();
+            string[] strThr = rawStrThr.Split(',');
+            foreach (string s in strThr)
+            {
+                if (s != null)
+                {
+                    qThr.Add(s);
+                }
+            }
+
+            List<string> qFour = new List<string>();
+            string rawStrFour = Request["four[]"].ToString();
+            string[] strFour = rawStrFour.Split(',');
+            foreach (string s in strFour)
+            {
+                if (s != null)
+                {
+                    qFour.Add(s);
+                }
+            }
+
+            List<string> qFive = new List<string>();
+            string rawStrFive = Request["five[]"].ToString();
+            string[] strFive = rawStrFive.Split(',');
+            foreach (string s in strFour)
+            {
+                if (s != null)
+                {
+                    qFive.Add(s);
+                }
+            }
+
+
+            List<string> qC = new List<string>();
+            string rawStrC = Request["myInputs[]"].ToString();
+            string[] strc = rawStrC.Split(',');
+            foreach (string s in strc)
+            {
+                if (s != null)
+                {
+                    qC.Add(s);
+                }
+            }
+
+
+
+
+
+            List<AnsHandle> answer = new List<AnsHandle>();
+
+            foreach (int sxqid in sxqArray)
+            {
+                if (yNCount < yN)
+                {
+                    AnsHandle y = new AnsHandle(sxqid, "Yes", user, Month, Year, Convert.ToInt32(qY[yNCount]));
+                    AnsHandle n = new AnsHandle(sxqid, "No", user, Month, Year, Convert.ToInt32(qN[yNCount]));
+                    answer.Add(y);
+                    answer.Add(n);
+                    yNCount++;
+                }
+                else if (oFCount < oneFive)
+                {
+                    AnsHandle one = new AnsHandle(sxqid, "1", user, Month, Year, Convert.ToInt32(qOne[oFCount]));
+                    AnsHandle two = new AnsHandle(sxqid, "2", user, Month, Year, Convert.ToInt32(qTwo[oFCount]));
+                    AnsHandle three = new AnsHandle(sxqid, "3", user, Month, Year, Convert.ToInt32(qThr[oFCount]));
+                    AnsHandle four = new AnsHandle(sxqid, "4", user, Month, Year, Convert.ToInt32(qFour[oFCount]));
+                    AnsHandle five = new AnsHandle(sxqid, "5", user, Month, Year, Convert.ToInt32(qFive[oFCount]));
+                    answer.Add(one);
+                    answer.Add(two);
+                    answer.Add(three);
+                    answer.Add(four);
+                    answer.Add(five);
+                    oFCount++;
+                }
+                else if (cCount < comm)
+                {
+                    foreach (string s in qC)
                     {
-                        qc.Add(s);
+                        AnsHandle comment = new AnsHandle(36, s, user, Month, Year, 1);
+                        answer.Add(comment);
                     }
+                    cCount++;
                 }
+            }
 
-                foreach (string s in qc)
-                {
-                    if (s != null)
-                    {
-                        AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
-                    }
-                }
+            foreach (AnsHandle a in answer)
+            {
+                a.Submit();
+            }
 
-            }
-            catch (Exception ex)
-            {
-                string a = ex.ToString();
-                //log error 
-                //display friendly error to user
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
+
+
 
 
             return View("Upload");
         }
+
 
 
 
@@ -463,24 +586,24 @@ namespace SampleMembership.Controllers
 
 
 
-                    List<string> s1qc = new List<string>();
-                    string rawStr = Request["myInputs[]"].ToString();
-                    string[] str = rawStr.Split(',');
-                    foreach (string s in str)
+                List<string> s1qc = new List<string>();
+                string rawStr = Request["myInputs[]"].ToString();
+                string[] str = rawStr.Split(',');
+                foreach (string s in str)
+                {
+                    if (s != null)
                     {
-                        if (s != null)
-                        {
-                            s1qc.Add(s);
-                        }
+                        s1qc.Add(s);
                     }
+                }
 
-                    foreach (string s in s1qc)
+                foreach (string s in s1qc)
+                {
+                    if (s != null)
                     {
-                        if (s != null)
-                        {
-                            AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
-                        }
+                        AnswerSqlHandler(36, s, user, Month, Year, 1, conn);
                     }
+                }
 
 
 
@@ -510,7 +633,7 @@ namespace SampleMembership.Controllers
 
 
 
-        public void AnswerSqlHandler (int SXQID, string AnsText, Guid user, int Month, int Year, int Quantity, SqlConnection conn)
+        public void AnswerSqlHandler(int SXQID, string AnsText, Guid user, int Month, int Year, int Quantity, SqlConnection conn)
         {
             if (Quantity != 0 && AnsText != null && AnsText != "")
             {
@@ -537,7 +660,7 @@ namespace SampleMembership.Controllers
                         //Error notification
                     }
                 }
-                
+
             }
         }
     }

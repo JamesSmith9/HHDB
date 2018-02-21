@@ -766,3 +766,7 @@ C:\Users\djohn\Source\Repos\HHDB17\HHDB Dashboard\SampleMembership\obj\Debug\Sam
 C:\Users\djohn\Source\Repos\HHDB17\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.dll
 C:\Users\djohn\Source\Repos\HHDB17\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.pdb
 C:\Users\djohn\Source\Repos\HHDB17\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csprojResolveAssemblyReference.cache
+C:\Users\Cord\Desktop\Git4\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.dll
+C:\Users\Cord\Desktop\Git4\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.Mvc.dll
+C:\Users\Cord\Desktop\Git4\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.xml
+C:\Users\Cord\Desktop\Git4\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.Mvc.xml

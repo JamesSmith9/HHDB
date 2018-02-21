@@ -8,56 +8,66 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm())
+    {
+<p>
+   
+     Search: @Html.TextBox("search")
+    <input type="submit" value="Filter" />
 </p>
-<table class="table">
-    <tr>
-        <th>
-           Answer
-        </th>
-        <th>
-            @Html.ActionLink("Create By", "Index", new { sortOrder = ViewBag.CreateSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Month", "Index", new { sortOrder = ViewBag.MonthSortParm })
-        </th>
-        <th>
-           @Html.ActionLink("Year", "Index", new { sortOrder = ViewBag.NameSortParm})
-        </th>
-        <th>
-          Quantity
-        </th>
-        <th>
-            Question ID
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnsText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedByUser)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Month)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SurveyXQuestion.SXQID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AnswerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AnswerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AnswerID })
-        </td>
-    </tr>
 }
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Answer
+            </th>
+            <th>
+                @Html.ActionLink("Create By", "Index", new { sortOrder = ViewBag.CreateSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Month", "Index", new { sortOrder = ViewBag.MonthSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Year", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Question ID
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnsText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedByUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SurveyXQuestion.SXQID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AnswerID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AnswerID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AnswerID })
+                </td>
+            </tr>
+        }
+
+    </table>

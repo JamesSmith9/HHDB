@@ -17,8 +17,11 @@ namespace SampleMembership.Controllers
 
        
         // GET: Answers
-        public ActionResult Index(string sortOrder, string search)
+        public ActionResult Index(string sortOrder, int? search)
         {
+
+            
+
             //Sorting Anwers
             //Year
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Year_desc" : "";
@@ -28,8 +31,15 @@ namespace SampleMembership.Controllers
             ViewBag.CreateSortParm = sortOrder == "Create" ? "create_desc" : "Create";
             var answers = db.Answers.Include(a => a.SurveyXQuestion);
 
+            //search year
+            if(search != null)
+            {
+                answers = answers.Where(a => a.Year ==(search));
+            }
+
             
 
+            //Sort by Month, Year, User
             switch (sortOrder)
             {
                 case "Year_desc":
@@ -166,6 +176,6 @@ namespace SampleMembership.Controllers
             }
             base.Dispose(disposing);
         }
-     
+        
     }
 }

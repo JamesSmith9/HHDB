@@ -42,7 +42,7 @@ namespace SampleMembership.Controllers
             int yNCount = 0;
             int oFCount = 0;
             int cCount = 0;
-
+            
             List<int> sxqArray = new List<int>();
             foreach (var item in model.SXQIDs)
             {

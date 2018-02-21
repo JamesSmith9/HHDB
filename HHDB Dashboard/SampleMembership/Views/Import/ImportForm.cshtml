@@ -11,7 +11,7 @@
 <script src="/js/addInput.js" language="Javascript" type="text/javascript"></script>
 
 
-@using (Html.BeginForm("ImportForm", "Upload", Model, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ImportForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form>
         Month(1-12): <input type="text" name="month" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="year" pattern="[0-9]{4}" required />

@@ -96,7 +96,7 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "passwordChange,IsApproved,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "UserName,Password,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {

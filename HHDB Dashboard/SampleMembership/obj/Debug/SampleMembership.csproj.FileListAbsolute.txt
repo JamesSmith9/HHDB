@@ -844,3 +844,8 @@ C:\Users\djohn\Source\Repos\HHDB18\HHDB Dashboard\SampleMembership\obj\Debug\Sam
 C:\Users\djohn\Source\Repos\HHDB18\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csproj.CoreCompileInputs.cache
 C:\Users\djohn\Source\Repos\HHDB18\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.dll
 C:\Users\djohn\Source\Repos\HHDB18\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.pdb
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.dll
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.Mvc.dll
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.xml
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\PagedList.Mvc.xml
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csproj.CoreCompileInputs.cache

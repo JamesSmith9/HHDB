@@ -62,15 +62,23 @@
 			</div>
 		</div>
 	</div>
+	@Html.HiddenFor(model => model.ApplicationId)
+	@Html.HiddenFor(model => model.IsLockedOut)
+	@Html.HiddenFor(model => model.LoweredEmail)
+	@Html.HiddenFor(model => model.PasswordSalt)
+	@Html.HiddenFor(model => model.PasswordFormat)
+	@Html.HiddenFor(model => model.UserId)
+	@Html.HiddenFor(model => model.Password)
+	@Html.HiddenFor(model => model.CreateDate)
+	@Html.HiddenFor(model => model.LastLoginDate)
+	@Html.HiddenFor(model => model.LastPasswordChangedDate)
+	@Html.HiddenFor(model => model.LastLockoutDate)
+	@Html.HiddenFor(model => model.FailedPasswordAttemptCount)
+	@Html.HiddenFor(model => model.FailedPasswordAttemptWindowStart)
+	@Html.HiddenFor(model => model.FailedPasswordAnswerAttemptCount)
+	@Html.HiddenFor(model => model.FailedPasswordAnswerAttemptWindowStart)
 }
 <div>
 	@Html.ActionLink("Back to List", "Index")
 </div>
-@Html.HiddenFor(model => model.IsLockedOut)
-@Html.HiddenFor(model => model.LoweredEmail)
-@Html.HiddenFor(model => model.PasswordSalt)
-@Html.HiddenFor(model => model.PasswordFormat)
-@Html.HiddenFor(model => model.UserId)
-@Html.HiddenFor(model => model.Password)
-@Html.HiddenFor(model => model.CreateDate)
-@Html.HiddenFor(model => model.LastLoginDate)
+

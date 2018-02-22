@@ -96,12 +96,14 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName,Password,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
 				if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange)) {
-					db.aspnet_Membership_ResetPassword("Hubbard House Survey Analysis System", aspnet_Membership.UserName, aspnet_Membership.passwordChange, null, null, DateTime.Now.ToString(), null, null, "");
+					aspnet_Membership.PasswordSalt = "Test";
+					db.aspnet_Membership_ResetPassword("Hubbard House Survey Analysis System", aspnet_Membership.UserName, aspnet_Membership.passwordChange, null, null, aspnet_Membership.PasswordSalt, DateTime.Now, 1, "");
+					aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
 				}
                 db.Entry(aspnet_Membership).State = EntityState.Modified;
                 db.SaveChanges();

@@ -40,16 +40,16 @@
           <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
           <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
           <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" />
           <Property Name="IsLockedOut" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
-          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" />
+          <Property Name="LastLockoutDate" Type="datetime" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" />
           <Property Name="Comment" Type="ntext" />
         </EntityType>
         <EntityType Name="aspnet_Roles">
@@ -300,6 +300,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="aspnet_Membership_GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaxInvalidPasswordAttempts" Type="int" Mode="In" />
+          <Parameter Name="PasswordAttemptWindow" Type="int" Mode="In" />
+          <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+          <Parameter Name="PasswordAnswer" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="aspnet_Membership_GetPasswordWithFormat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UpdateLastLoginActivityDate" Type="bit" Mode="In" />
+          <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="aspnet_Membership_ResetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaxInvalidPasswordAttempts" Type="int" Mode="In" />
+          <Parameter Name="PasswordAttemptWindow" Type="int" Mode="In" />
+          <Parameter Name="PasswordSalt" Type="nvarchar" Mode="In" />
+          <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+          <Parameter Name="PasswordFormat" Type="int" Mode="In" />
+          <Parameter Name="PasswordAnswer" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="aspnet_Membership_SetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="PasswordSalt" Type="nvarchar" Mode="In" />
+          <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+          <Parameter Name="PasswordFormat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="aspnet_UsersInRoles_AddUsersToRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserNames" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleNames" Type="nvarchar" Mode="In" />
+          <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="aspnet_UsersInRoles_GetRolesForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="aspnet_UsersInRoles_RemoveUsersFromRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserNames" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleNames" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="HHDBModelStoreContainer">
           <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />
@@ -508,6 +556,54 @@
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
             <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
           </AssociationSet>
+          <FunctionImport Name="aspnet_Membership_GetPassword" ReturnType="Collection(HHDBModel.aspnet_Membership_GetPassword_Result)">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="MaxInvalidPasswordAttempts" Mode="In" Type="Int32" />
+            <Parameter Name="PasswordAttemptWindow" Mode="In" Type="Int32" />
+            <Parameter Name="CurrentTimeUtc" Mode="In" Type="DateTime" />
+            <Parameter Name="PasswordAnswer" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_Membership_GetPasswordWithFormat" ReturnType="Collection(HHDBModel.aspnet_Membership_GetPasswordWithFormat_Result)">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="UpdateLastLoginActivityDate" Mode="In" Type="Boolean" />
+            <Parameter Name="CurrentTimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_Membership_ResetPassword">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="NewPassword" Mode="In" Type="String" />
+            <Parameter Name="MaxInvalidPasswordAttempts" Mode="In" Type="Int32" />
+            <Parameter Name="PasswordAttemptWindow" Mode="In" Type="Int32" />
+            <Parameter Name="PasswordSalt" Mode="In" Type="String" />
+            <Parameter Name="CurrentTimeUtc" Mode="In" Type="DateTime" />
+            <Parameter Name="PasswordFormat" Mode="In" Type="Int32" />
+            <Parameter Name="PasswordAnswer" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_Membership_SetPassword">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="NewPassword" Mode="In" Type="String" />
+            <Parameter Name="PasswordSalt" Mode="In" Type="String" />
+            <Parameter Name="CurrentTimeUtc" Mode="In" Type="DateTime" />
+            <Parameter Name="PasswordFormat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_UsersInRoles_AddUsersToRoles" ReturnType="Collection(String)">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserNames" Mode="In" Type="String" />
+            <Parameter Name="RoleNames" Mode="In" Type="String" />
+            <Parameter Name="CurrentTimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_UsersInRoles_GetRolesForUser" ReturnType="Collection(String)">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="aspnet_UsersInRoles_RemoveUsersFromRoles" ReturnType="Collection(HHDBModel.aspnet_UsersInRoles_RemoveUsersFromRoles_Result)">
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="UserNames" Mode="In" Type="String" />
+            <Parameter Name="RoleNames" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -564,16 +660,16 @@
           <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" />
           <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="aspnet_Applications" Relationship="HHDBModel.FK__aspnet_Me__Appli__0C50D423" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
           <NavigationProperty Name="aspnet_Applications1" Relationship="HHDBModel.FK__aspnet_Me__Appli__4D94879B" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
@@ -781,6 +877,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="aspnet_Membership_GetPassword_Result">
+          <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Column2" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="aspnet_Membership_GetPasswordWithFormat_Result">
+          <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Column2" Nullable="true" />
+          <Property Type="String" Name="Column3" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Column4" Nullable="true" />
+          <Property Type="Int32" Name="Column5" Nullable="true" />
+          <Property Type="Boolean" Name="Column6" Nullable="true" />
+          <Property Type="DateTime" Name="Column7" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Column8" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="aspnet_UsersInRoles_RemoveUsersFromRoles_Result">
+          <Property Type="String" Name="Column1" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -898,6 +1012,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_GetPassword">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HHDBModel.aspnet_Membership_GetPassword_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPasswordWithFormat" FunctionName="HHDBModel.Store.aspnet_Membership_GetPasswordWithFormat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HHDBModel.aspnet_Membership_GetPasswordWithFormat_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+                <ScalarProperty Name="Column3" ColumnName="Column3" />
+                <ScalarProperty Name="Column4" ColumnName="Column4" />
+                <ScalarProperty Name="Column5" ColumnName="Column5" />
+                <ScalarProperty Name="Column6" ColumnName="Column6" />
+                <ScalarProperty Name="Column7" ColumnName="Column7" />
+                <ScalarProperty Name="Column8" ColumnName="Column8" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="aspnet_Membership_ResetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_ResetPassword" />
+          <FunctionImportMapping FunctionImportName="aspnet_Membership_SetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_SetPassword" />
+          <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_AddUsersToRoles" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_AddUsersToRoles" />
+          <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_GetRolesForUser" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_GetRolesForUser" />
+          <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_RemoveUsersFromRoles" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_RemoveUsersFromRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HHDBModel.aspnet_UsersInRoles_RemoveUsersFromRoles_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

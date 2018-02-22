@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace SampleMembership.Models
 {
     using System;
@@ -28,11 +26,5 @@ namespace SampleMembership.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyXQuestion> SurveyXQuestions { get; set; }
-
-        [Display(Name = "Questions")]
-        public List<Question> SurveyQuestions = new List<Question>();
-
-        [Display(Name = "SXQIDs")]
-        public List<SurveyXQuestion> SXQIDs = new List<SurveyXQuestion>();
     }
 }

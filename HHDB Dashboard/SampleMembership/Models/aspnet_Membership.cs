@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Linq;
-
 namespace SampleMembership.Models
 {
     using System;
@@ -18,7 +16,6 @@ namespace SampleMembership.Models
     {
         public System.Guid ApplicationId { get; set; }
         public System.Guid UserId { get; set; }
-        public string UserName { get; set; }
         public string Password { get; set; }
         public int PasswordFormat { get; set; }
         public string PasswordSalt { get; set; }
@@ -27,19 +24,19 @@ namespace SampleMembership.Models
         public string LoweredEmail { get; set; }
         public string PasswordQuestion { get; set; }
         public string PasswordAnswer { get; set; }
-        public bool IsApproved { get; set; }
-        public bool? IsLockedOut { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
+        public bool IsLockedOut { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public System.DateTime? LastLoginDate { get; set; }
-        public System.DateTime? LastPasswordChangedDate { get; set; }
-        public System.DateTime? LastLockoutDate { get; set; }
-        public int? FailedPasswordAttemptCount { get; set; }
-        public System.DateTime? FailedPasswordAttemptWindowStart { get; set; }
-        public int? FailedPasswordAnswerAttemptCount { get; set; }
-        public System.DateTime? FailedPasswordAnswerAttemptWindowStart { get; set; }
+        public Nullable<System.DateTime> LastLoginDate { get; set; }
+        public Nullable<System.DateTime> LastPasswordChangedDate { get; set; }
+        public Nullable<System.DateTime> LastLockoutDate { get; set; }
+        public Nullable<int> FailedPasswordAttemptCount { get; set; }
+        public Nullable<System.DateTime> FailedPasswordAttemptWindowStart { get; set; }
+        public Nullable<int> FailedPasswordAnswerAttemptCount { get; set; }
+        public Nullable<System.DateTime> FailedPasswordAnswerAttemptWindowStart { get; set; }
         public string Comment { get; set; }
     
-        public virtual IQueryable<aspnet_Applications> aspnet_Applications { get; set; }
+        public virtual aspnet_Applications aspnet_Applications { get; set; }
         public virtual aspnet_Applications aspnet_Applications1 { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual aspnet_Users aspnet_Users1 { get; set; }

@@ -35,15 +35,17 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplicationId,UserName,Password,Email,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Create([Bind(Include = "UserName,Password,Email,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
-                aspnet_Users user = new aspnet_Users();
+				var hubbardHouseApplication = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault();
+				aspnet_Users user = new aspnet_Users();
                 user.UserName = aspnet_Membership.UserName;
                 user.LoweredUserName = aspnet_Membership.UserName.ToLower();
                 user.UserId = Guid.NewGuid();
-                db.aspnet_Users.Add(user);
+				user.ApplicationId = hubbardHouseApplication.ApplicationId;
+				db.aspnet_Users.Add(user);
                 db.SaveChanges();
 
                 aspnet_Membership.CreateDate = DateTime.Now;
@@ -51,8 +53,7 @@ namespace SampleMembership.Controllers
                 aspnet_Membership.PasswordSalt = DateTime.Now.ToString();
                 aspnet_Membership.CreateDate = DateTime.Now;
                 aspnet_Membership.UserId = user.UserId;
-                aspnet_Membership.aspnet_Applications =
-                    db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System");
+				aspnet_Membership.aspnet_Applications = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System");
 
                 db.aspnet_Membership.Add(aspnet_Membership);
                 db.SaveChanges();

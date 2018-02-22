@@ -11,8 +11,9 @@ namespace SampleMembership.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Survey
+	using System.ComponentModel.DataAnnotations;
+
+	public partial class Survey
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Survey()
@@ -26,5 +27,10 @@ namespace SampleMembership.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyXQuestion> SurveyXQuestions { get; set; }
-    }
+		[Display(Name = "Questions")]
+		public List<Question> SurveyQuestions = new List<Question>();
+
+		[Display(Name = "SXQIDs")]
+		public List<SurveyXQuestion> SXQIDs = new List<SurveyXQuestion>();
+	}
 }

@@ -201,6 +201,12 @@
     <Compile Include="Models\aspnet_Membership.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\aspnet_Membership_GetPasswordWithFormat_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership_GetPassword_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\aspnet_Roles.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -208,6 +214,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\aspnet_UsersInRoles.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_UsersInRoles_RemoveUsersFromRoles_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />

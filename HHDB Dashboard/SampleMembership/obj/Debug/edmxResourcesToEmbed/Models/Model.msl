@@ -112,5 +112,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_GetPassword">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HHDBModel.aspnet_Membership_GetPassword_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_GetPasswordWithFormat" FunctionName="HHDBModel.Store.aspnet_Membership_GetPasswordWithFormat">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HHDBModel.aspnet_Membership_GetPasswordWithFormat_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+          <ScalarProperty Name="Column4" ColumnName="Column4" />
+          <ScalarProperty Name="Column5" ColumnName="Column5" />
+          <ScalarProperty Name="Column6" ColumnName="Column6" />
+          <ScalarProperty Name="Column7" ColumnName="Column7" />
+          <ScalarProperty Name="Column8" ColumnName="Column8" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_ResetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_ResetPassword" />
+    <FunctionImportMapping FunctionImportName="aspnet_Membership_SetPassword" FunctionName="HHDBModel.Store.aspnet_Membership_SetPassword" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_AddUsersToRoles" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_AddUsersToRoles" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_GetRolesForUser" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_GetRolesForUser" />
+    <FunctionImportMapping FunctionImportName="aspnet_UsersInRoles_RemoveUsersFromRoles" FunctionName="HHDBModel.Store.aspnet_UsersInRoles_RemoveUsersFromRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HHDBModel.aspnet_UsersInRoles_RemoveUsersFromRoles_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

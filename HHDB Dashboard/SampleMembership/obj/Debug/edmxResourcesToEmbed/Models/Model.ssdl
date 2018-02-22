@@ -35,16 +35,16 @@
     <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
     <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
     <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
-    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" />
     <Property Name="IsLockedOut" Type="bit" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" Nullable="false" />
-    <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
-    <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
-    <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
-    <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
-    <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
-    <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
-    <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="LastPasswordChangedDate" Type="datetime" />
+    <Property Name="LastLockoutDate" Type="datetime" />
+    <Property Name="FailedPasswordAttemptCount" Type="int" />
+    <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" />
+    <Property Name="FailedPasswordAnswerAttemptCount" Type="int" />
+    <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" />
     <Property Name="Comment" Type="ntext" />
   </EntityType>
   <EntityType Name="aspnet_Roles">
@@ -295,6 +295,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="aspnet_Membership_GetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="MaxInvalidPasswordAttempts" Type="int" Mode="In" />
+    <Parameter Name="PasswordAttemptWindow" Type="int" Mode="In" />
+    <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+    <Parameter Name="PasswordAnswer" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="aspnet_Membership_GetPasswordWithFormat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UpdateLastLoginActivityDate" Type="bit" Mode="In" />
+    <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="aspnet_Membership_ResetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="MaxInvalidPasswordAttempts" Type="int" Mode="In" />
+    <Parameter Name="PasswordAttemptWindow" Type="int" Mode="In" />
+    <Parameter Name="PasswordSalt" Type="nvarchar" Mode="In" />
+    <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+    <Parameter Name="PasswordFormat" Type="int" Mode="In" />
+    <Parameter Name="PasswordAnswer" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="aspnet_Membership_SetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="PasswordSalt" Type="nvarchar" Mode="In" />
+    <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+    <Parameter Name="PasswordFormat" Type="int" Mode="In" />
+  </Function>
+  <Function Name="aspnet_UsersInRoles_AddUsersToRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserNames" Type="nvarchar" Mode="In" />
+    <Parameter Name="RoleNames" Type="nvarchar" Mode="In" />
+    <Parameter Name="CurrentTimeUtc" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="aspnet_UsersInRoles_GetRolesForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="aspnet_UsersInRoles_RemoveUsersFromRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserNames" Type="nvarchar" Mode="In" />
+    <Parameter Name="RoleNames" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="HHDBModelStoreContainer">
     <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />

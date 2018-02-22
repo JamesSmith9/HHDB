@@ -96,10 +96,13 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Password,IsApproved,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "passwordChange,IsApproved,IsLockedOut,Comment")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
+				if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange)) {
+					db.aspnet_Membership_ResetPassword("Hubbard House Survey Analysis System", aspnet_Membership.UserName, aspnet_Membership.passwordChange, null, null, DateTime.Now.ToString(), null, null, "");
+				}
                 db.Entry(aspnet_Membership).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

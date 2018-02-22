@@ -41,10 +41,15 @@ namespace SampleMembership.Controllers
             survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
                 .Select(x => x.Question).ToList();
 
+
+            survey.SXQIDs = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID).ToList();
+
+
+
             return View(survey);
-            
+
         }
-       
+
 
     }
 }

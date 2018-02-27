@@ -79,11 +79,15 @@ namespace SampleMembership.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
-            if (aspnet_Membership == null)
+			
+			if (aspnet_Membership == null)
             {
                 return HttpNotFound();
             }
-			
+
+			var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
+			aspnet_Membership.userNameChange = user.UserName;
+
 			ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
             ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
@@ -96,7 +100,7 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "userNameChange,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +109,14 @@ namespace SampleMembership.Controllers
 					db.aspnet_Membership_ResetPassword("Hubbard House Survey Analysis System", aspnet_Membership.UserName, aspnet_Membership.passwordChange, null, null, aspnet_Membership.PasswordSalt, DateTime.Now, 1, "");
 					aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
 				}
+
+				//Update UserName
+				var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
+				if (user.UserName != aspnet_Membership.userNameChange)
+				{
+					user.UserName = aspnet_Membership.userNameChange;
+				}
+
                 db.Entry(aspnet_Membership).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -18,7 +18,9 @@ namespace SampleMembership.Models
 
 		public System.Guid ApplicationId { get; set; }
         public System.Guid UserId { get; set; }
-        public string Password { get; set; }
+		public string userNameChange { get; set; }
+
+		public string Password { get; set; }
 		public string passwordChange { get; set; }
         public int PasswordFormat { get; set; }
         public string PasswordSalt { get; set; }

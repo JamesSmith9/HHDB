@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Import Data</h2>
+<h2>Data Entry</h2>
 
 
 <table class="table">
@@ -15,7 +15,7 @@
         </td>
 
         <td>
-            @Html.ActionLink("Import", "ImportForm", new { id = item.SurveyID })
+            @Html.ActionLink("Enter Data", "ImportForm", new { id = item.SurveyID })
         </td>
     </tr>
 }

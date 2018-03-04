@@ -10,12 +10,12 @@ namespace SampleMembership.Models
 {
     public class AnsHandle
     {
-        int SXQID;
-        string AnsText;
-        Guid CreatedByUser;
-        int Month;
-        int Year;
-        int Quantity;
+        int SXQID { get; set; }
+        string AnsText { get; set; }
+        Guid CreatedByUser { get; set; }
+        int Month { get; set; }
+        int Year { get; set; }
+        int Quantity { get; set; }
 
         public AnsHandle(int SXQID, string AnsText, Guid CreatedByUser, int Month, int Year, int Quantity)
         {

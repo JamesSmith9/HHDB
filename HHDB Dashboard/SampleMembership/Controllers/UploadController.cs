@@ -36,9 +36,9 @@ namespace SampleMembership.Controllers
             MembershipUser u = Membership.GetUser();
             Guid user = (Guid)u.ProviderUserKey;
 
-            int yN = 0;
-            int oneFive = 0;
-            int comm = 0;
+            int yN = 9;
+            int oneFive = 26;
+            int comm = 1;
             int yNCount = 0;
             int oFCount = 0;
             int cCount = 0;
@@ -48,7 +48,7 @@ namespace SampleMembership.Controllers
             {
                 sxqArray.Add(item.SXQID);
             }
-
+/*
             foreach (var item in model.SurveyQuestions)
             {
                 if (item.QuestionType == 1)
@@ -64,7 +64,7 @@ namespace SampleMembership.Controllers
                     comm++;
                 }
             }
-
+            */
             List<string> qY = new List<string>();
             string rawStrY = Request["yes[]"].ToString();
             string[] strY = rawStrY.Split(',');

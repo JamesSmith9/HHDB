@@ -30,11 +30,17 @@ namespace SampleMembership.Controllers
         [HttpPost]
         public ActionResult ImportForm(Survey model)
         {
+            
 
             int Month = Convert.ToInt32(Request["month"].ToString());
             int Year = Convert.ToInt32(Request["year"].ToString());
             MembershipUser u = Membership.GetUser();
             Guid user = (Guid)u.ProviderUserKey;
+
+
+
+
+
 
             int yN = 9;
             int oneFive = 26;
@@ -48,7 +54,7 @@ namespace SampleMembership.Controllers
             {
                 sxqArray.Add(item.SXQID);
             }
-/*
+            /*
             foreach (var item in model.SurveyQuestions)
             {
                 if (item.QuestionType == 1)
@@ -155,10 +161,8 @@ namespace SampleMembership.Controllers
             }
 
 
-
-
-
             List<AnsHandle> answer = new List<AnsHandle>();
+
 
             foreach (int sxqid in sxqArray)
             {
@@ -195,10 +199,37 @@ namespace SampleMembership.Controllers
                 }
             }
 
-            foreach (AnsHandle a in answer)
+
+
+            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
+            SqlConnection conn = null;
+            try
             {
-                a.Submit();
+                conn = new SqlConnection(connString);
+                conn.Open();
+
+
+
+                foreach (AnsHandle a in answer)
+                {
+                    AnswerSqlHandler(a.SXQID, a.AnsText, a.CreatedByUser, a.Month, a.Year, a.Quantity, conn);
+                }
+
+
+
             }
+            catch (Exception ex)
+            {
+                string a = ex.ToString();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
 
 
 

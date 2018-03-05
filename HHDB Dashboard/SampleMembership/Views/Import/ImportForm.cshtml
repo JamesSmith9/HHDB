@@ -28,17 +28,17 @@
                     <td>
                         @if (item.QuestionType == 1)
                         {
-                            @:Yes  <input type="number" name="yes[]" value="0" min="0" max="9999" />&nbsp; &nbsp; &nbsp;
-                            @:No   <input type="number" name="no[]" value="0" min="0" max="9999" />
+                            @:Yes  <input type="number" name="yes" value="0" min="0" max="9999" />&nbsp; &nbsp; &nbsp;
+                            @:No   <input type="number" name="no" value="0" min="0" max="9999" />
                         }
 
                         @if (item.QuestionType == 2)
                         {
-                            @:Number of 1 responses  <input type="number" name="one[]" value="0" min="0" max="9999" /> <br />
-                            @:Number of 2 responses  <input type="number" name="two[]" value="0" min="0" max="9999" /> <br />
-                            @:Number of 3 responses  <input type="number" name="three[]" value="0" min="0" max="9999" /> <br />
-                            @:Number of 4 responses  <input type="number" name="four[]" value="0" min="0" max="9999" /> <br />
-                            @:Number of 5 responses  <input type="number" name="five[]" value="0" min="0" max="9999" />
+                            @:Number of 1 responses  <input type="number" name="one" value="0" min="0" max="9999" /> <br />
+                            @:Number of 2 responses  <input type="number" name="two" value="0" min="0" max="9999" /> <br />
+                            @:Number of 3 responses  <input type="number" name="three" value="0" min="0" max="9999" /> <br />
+                            @:Number of 4 responses  <input type="number" name="four" value="0" min="0" max="9999" /> <br />
+                            @:Number of 5 responses  <input type="number" name="five" value="0" min="0" max="9999" />
                         }
 
                         @if (item.QuestionType == 3)
@@ -53,11 +53,12 @@
         </table>
         <br />
         <br />
+        
 
+        
         @for (int i = 0; i < Model.SXQIDs.Count; i++)
         {
-            @Html.HiddenFor(x => x.SXQIDs[i])
-            
+            <input type="hidden" name="sxqid" value="<%= Model.SXQIDs[i].SXQID %"/>
         }
 
         <br />

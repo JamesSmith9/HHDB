@@ -53,14 +53,7 @@
         </table>
         <br />
         <br />
-        
-
-        
-        @for (int i = 0; i < Model.SXQIDs.Count; i++)
-        {
-            <input type="hidden" name="sxqid" value="<%= Model.SXQIDs[i].SXQID %"/>
-        }
-
+        @Html.HiddenFor(m => m.SurveyID)
         <br />
         <br />
         <br />

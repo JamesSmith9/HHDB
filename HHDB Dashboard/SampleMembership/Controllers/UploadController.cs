@@ -17,8 +17,12 @@ namespace SampleMembership.Controllers
     [Authorize]
     public class UploadController : Controller
     {
-        // GET: Upload
-        public ActionResult Upload()
+
+		private HHDBEntities db = new HHDBEntities();
+
+
+		// GET: Upload
+		public ActionResult Upload()
         {
 
             return View();
@@ -27,9 +31,13 @@ namespace SampleMembership.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult ImportForm(Survey model, int[] yes, int[] no, int[] one, int[] two, int[] three, int[] four, int[] five, int[] sxqid)
+		[HttpPost]
+		public ActionResult ImportForm([Bind(Include = "SurveyID")]Survey model)
         {
+
+			model.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == model.SurveyID)
+				.Select(x => x.Question).ToList();
+			/*
             int Month = Convert.ToInt32(Request["month"].ToString());
             int Year = Convert.ToInt32(Request["year"].ToString());
             MembershipUser u = Membership.GetUser();
@@ -37,8 +45,7 @@ namespace SampleMembership.Controllers
             List<AnsHandle> answer = new List<AnsHandle>();
             int sxqCount = 0;
 
-
-            List<int> sxqArray = new List<int>();
+			List<int> sxqArray = new List<int>();
             foreach (var item in sxqid)
             {
                 sxqArray.Add(item);
@@ -116,8 +123,9 @@ namespace SampleMembership.Controllers
                 }
             }
 
-
-            return View("Upload");
+	*/
+			return View("Upload");
+		
         }
 
 

@@ -100,13 +100,13 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "userNameChange,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "UserName,userNameChange,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
 				if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange)) {
-					aspnet_Membership.PasswordSalt = "Test";
-					db.aspnet_Membership_ResetPassword("Hubbard House Survey Analysis System", aspnet_Membership.UserName, aspnet_Membership.passwordChange, null, null, aspnet_Membership.PasswordSalt, DateTime.Now, 1, "");
+					MembershipUser member = Membership.GetUser(aspnet_Membership.UserName);
+					member.ChangePassword(member.ResetPassword(), aspnet_Membership.passwordChange);
 					aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
 				}
 

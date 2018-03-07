@@ -41,15 +41,25 @@ namespace SampleMembership.Controllers
             survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
                 .Select(x => x.Question).ToList();
 
-
-            survey.SXQIDs = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID).ToList();
-
-
-
             return View(survey);
-
         }
 
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "SXQID,QuestionID,SurveyID")] SurveyXQuestion surveyXQuestion)
+		{
+			if (ModelState.IsValid)
+			{
+				db.SurveyXQuestions.Add(surveyXQuestion);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
 
-    }
+			ViewBag.QuestionID = new SelectList(db.Questions, "QuestionID", "QText", surveyXQuestion.QuestionID);
+			ViewBag.SurveyID = new SelectList(db.Surveys, "SurveyID", "Name", surveyXQuestion.SurveyID);
+			return View(surveyXQuestion);
+		}
+
+
+	}
 }

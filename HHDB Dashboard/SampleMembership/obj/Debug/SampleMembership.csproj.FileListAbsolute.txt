@@ -687,3 +687,10 @@ C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\Micro
 C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csprojResolveAssemblyReference.cache
 C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.dll
 C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.pdb
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Net.Http.Formatting.dll
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Web.Http.dll
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Web.Http.WebHost.dll
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Net.Http.Formatting.xml
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Web.Http.xml
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\System.Web.Http.WebHost.xml
+C:\Users\dusti\OneDrive\Documents\HHDB\HHDB Dashboard\SampleMembership\bin\DotNet.Highcharts.dll

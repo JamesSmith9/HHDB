@@ -55,6 +55,10 @@ namespace SampleMembership.Controllers
         // GET: Reports
         public ActionResult Index()
         {
+
+            var exemploList = new SelectList(new[] { "Exemplo1:", "Exemplo2", "Exemplo3" });
+            ViewBag.ExemploList = exemploList;
+
             return View();
         }
         public ActionResult PieChart()
@@ -66,7 +70,15 @@ namespace SampleMembership.Controllers
         {
             return View();
         }
-
-
+        public class DropDownListController : Controller
+        {
+            //  
+            // GET: /DropDownList/  
+            public ActionResult Index()
+            {
+                return View();
+            }
+        }
     }
+
 }

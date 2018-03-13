@@ -12,6 +12,19 @@
 <p><font size="6">@Html.ActionLink("Example of Pie Graph", "PieChart") </font> </p>
 
 
-<font>Example of answers on Questions  1-3 answered over seven years.</font> 
+<font>Example of answers on Questions  1-3 answered over seven years.</font>
 <p><font size="6">@Html.ActionLink("Example of Line Graph", "LineGraph") </font> </p>
 
+<font>Create Pie Graph based on year: </font>
+@Html.DropDownList("MySkills", new List<SelectListItem>
+    {
+    new SelectListItem{ Text="1990", Value = "1" },
+    new SelectListItem{ Text="1991", Value = "2" },
+    new SelectListItem{ Text="1992", Value = "3" },
+    new SelectListItem{ Text="1993", Value = "4" },
+    new SelectListItem{ Text="2000", Value = "5" },
+    new SelectListItem{ Text="2001", Value = "6" },
+    new SelectListItem{ Text="2002", Value = "7" },
+    new SelectListItem{ Text="2003", Value = "8" }
+    })
+@Html.ActionLink("Submit", "Piechart", null, new { @class = "btn" })

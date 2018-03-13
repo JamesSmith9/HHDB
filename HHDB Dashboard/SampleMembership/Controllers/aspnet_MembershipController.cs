@@ -27,6 +27,7 @@ namespace SampleMembership.Controllers
         {
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
             ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName");
+			//Add dropdown for roles
             return View();
         }
 
@@ -95,7 +96,8 @@ namespace SampleMembership.Controllers
 					var member = Membership.GetUser(aspnet_Membership.UserName.ToString());
 					if (member != null)
 					{
-						member.ChangePassword(aspnet_Membership.Password, aspnet_Membership.passwordChange);
+						
+						var result = member.ChangePassword(member.ResetPassword(), aspnet_Membership.passwordChange);
 						aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
 					}
 					else

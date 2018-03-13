@@ -44,5 +44,7 @@ namespace SampleMembership.Models
         public virtual aspnet_Applications aspnet_Applications1 { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual aspnet_Users aspnet_Users1 { get; set; }
-    }
+
+		public List<aspnet_Roles> SurveyQuestions = new List<aspnet_Roles>();
+	}
 }

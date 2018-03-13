@@ -86,7 +86,7 @@ namespace SampleMembership.Controllers
             }
 
 			var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
-			aspnet_Membership.userNameChange = user.UserName;
+			aspnet_Membership.UserName = user.UserName;
 
 			ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
@@ -100,22 +100,24 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName,userNameChange,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
+        public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
         {
             if (ModelState.IsValid)
             {
+
 				if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange)) {
-					MembershipUser member = Membership.GetUser(aspnet_Membership.UserName);
-					member.ChangePassword(member.ResetPassword(), aspnet_Membership.passwordChange);
-					aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
+					var member = Membership.GetUser(aspnet_Membership.UserName.ToString());
+					if (member != null)
+					{
+						member.ChangePassword(aspnet_Membership.Password, aspnet_Membership.passwordChange);
+						aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
+					}
+					else
+					{
+						ModelState.AddModelError(string.Empty,"Error occured updating user password.");
+					}
 				}
 
-				//Update UserName
-				var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
-				if (user.UserName != aspnet_Membership.userNameChange)
-				{
-					user.UserName = aspnet_Membership.userNameChange;
-				}
 
                 db.Entry(aspnet_Membership).State = EntityState.Modified;
                 db.SaveChanges();

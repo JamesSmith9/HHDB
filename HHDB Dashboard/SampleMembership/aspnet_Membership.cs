@@ -7,20 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SampleMembership.Models
+namespace SampleMembership
 {
     using System;
     using System.Collections.Generic;
     
     public partial class aspnet_Membership
     {
-		public string UserName { get; set; }
-
-		public System.Guid ApplicationId { get; set; }
+        public System.Guid ApplicationId { get; set; }
         public System.Guid UserId { get; set; }
-
-		public string Password { get; set; }
-		public string passwordChange { get; set; }
+        public string Password { get; set; }
         public int PasswordFormat { get; set; }
         public string PasswordSalt { get; set; }
         public string MobilePIN { get; set; }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="378b5a9628614b999ee6ba93754452d1" Name="Diagram1">
+        <EntityTypeShape EntityType="HHDBModel.Question" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HHDBModel.Survey" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HHDBModel.SurveyXQuestion" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="HHDBModel.FK_SurveyXQuestion_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="HHDBModel.FK_SurveyXQuestion_Survey" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HHDBModel.Answer" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="HHDBModel.FK_Answer_SurveyXQuestion" />
+        <EntityTypeShape EntityType="HHDBModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="HHDBModel.aspnet_Membership" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="HHDBModel.aspnet_Roles" Width="1.5" PointX="3" PointY="21.125" />
+        <EntityTypeShape EntityType="HHDBModel.aspnet_Users" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="HHDBModel.aspnet_UsersInRoles" Width="1.5" PointX="5.25" PointY="12.75" />
+        <AssociationConnector Association="HHDBModel.FK_Answer_aspnet_Users" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__Appli__0C50D423" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__Appli__4D94879B" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Ro__Appli__12FDD1B2" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Ro__Appli__6C190EBB" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__Appli__13F1F5EB" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__Appli__3D5E1FD2" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__UserI__0D44F85C" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Me__UserI__4E88ABD4" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__RoleI__14E61A24" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__RoleI__70DDC3D8" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__UserI__15DA3E5D" />
+        <AssociationConnector Association="HHDBModel.FK__aspnet_Us__UserI__6FE99F9F" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

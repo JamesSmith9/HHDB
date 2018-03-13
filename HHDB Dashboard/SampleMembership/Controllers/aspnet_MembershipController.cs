@@ -40,27 +40,13 @@ namespace SampleMembership.Controllers
             if (ModelState.IsValid)
             {
 				var hubbardHouseApplication = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault();
-				aspnet_Users user = new aspnet_Users
-				{
-					UserName = aspnet_Membership.UserName,
-					LoweredUserName = aspnet_Membership.UserName.ToLower(),
-					UserId = Guid.NewGuid(),
-					ApplicationId = hubbardHouseApplication.ApplicationId,
-					LastActivityDate = DateTime.Now
-				};
-				db.aspnet_Users.Add(user);
+				MembershipUser user = Membership.CreateUser
+				(
+					aspnet_Membership.UserName,
+					aspnet_Membership.Password					
+				);
                 db.SaveChanges();
 
-                aspnet_Membership.CreateDate = DateTime.Now;
-                aspnet_Membership.PasswordFormat = 1;
-                aspnet_Membership.PasswordSalt = DateTime.Now.ToString();
-                aspnet_Membership.CreateDate = DateTime.Now;
-                aspnet_Membership.UserId = user.UserId;
-				aspnet_Membership.ApplicationId = hubbardHouseApplication.ApplicationId;
-
-
-                db.aspnet_Membership.Add(aspnet_Membership);
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

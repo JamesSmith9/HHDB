@@ -194,7 +194,7 @@
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\aspnet_MembershipController.cs" />
     <Compile Include="Controllers\aspnet_UsersController.cs" />
-    <Compile Include="Controllers\Highcharts.cs" />
+    <Compile Include="Controllers\HighchartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

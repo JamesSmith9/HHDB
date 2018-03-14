@@ -12,11 +12,12 @@ using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
 {
-    public class Highcharts : ApiController
-    {
-        private HHDBEntities db = new HHDBEntities();
+	public class HighchartsController : ApiController
+	{
+		private HHDBEntities db = new HHDBEntities();
 
-		// GET: api/Highcharts
+		// GET: api/Controller
+		[HttpGet]
 		public IQueryable<Answer> GetAnswers()
         {
             return db.Answers;

@@ -14,9 +14,9 @@ namespace SampleMembership
         protected void Application_Start()
         {
 			AreaRegistration.RegisterAllAreas();
+			GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-			WebApiConfig.Register(GlobalConfiguration.Configuration);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

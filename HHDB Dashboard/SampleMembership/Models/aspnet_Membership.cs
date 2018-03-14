@@ -11,8 +11,9 @@ namespace SampleMembership.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class aspnet_Membership
+	using System.Web.Mvc;
+
+	public partial class aspnet_Membership
     {
 		public string UserName { get; set; }
 
@@ -45,6 +46,7 @@ namespace SampleMembership.Models
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual aspnet_Users aspnet_Users1 { get; set; }
 
-		public List<aspnet_Roles> UserRoles = new List<aspnet_Roles>();
+		public IEnumerable<SelectListItem> UserRoles { get; set; }
+		public int RoleId { get; set; }
 	}
 }

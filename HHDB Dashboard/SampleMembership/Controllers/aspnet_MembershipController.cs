@@ -27,8 +27,8 @@ namespace SampleMembership.Controllers
         {
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
             ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName");
-			//Add dropdown for roles
-            return View();
+			ViewBag.UserRoles = new SelectList(db.aspnet_Roles, "RoleId", "RoleName");
+			return View();
         }
 
         // POST: aspnet_Membership/Create

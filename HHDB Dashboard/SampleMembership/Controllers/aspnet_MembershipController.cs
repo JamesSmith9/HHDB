@@ -35,14 +35,13 @@ namespace SampleMembership.Controllers
 			{
 				viewModel = new aspnet_Membership
 				{
-					ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId,
 					IsApproved = true
 				};
-			
 			}
-		
+			
 			var roles = db.aspnet_Roles.ToList();
 			viewModel.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
+			viewModel.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 
 			return View(viewModel);
 		}
@@ -53,11 +52,10 @@ namespace SampleMembership.Controllers
 	// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Create([Bind(Include = "UserName,Password,IsLockedOut,Comment, RoleId")] aspnet_Membership aspnet_Membership)
+	public ActionResult Create([Bind(Include = "UserName,Password,IsLockedOut,Comment,RoleId,ApplicationId")] aspnet_Membership aspnet_Membership)
 	{
 		if (ModelState.IsValid)
 		{
-			var hubbardHouseApplication = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault();
 			MembershipUser user = Membership.CreateUser
 			(
 				aspnet_Membership.UserName,
@@ -65,16 +63,15 @@ namespace SampleMembership.Controllers
 			);
 			db.SaveChanges();
 
-			//Roles.AddUserToRole(user.UserName, aspnet_Membership.UserRoles.ToString());
+			Roles.AddUserToRole(user.UserName, aspnet_Membership.RoleId.ToString());
 
 			return RedirectToAction("Index");
 		}
+			var roles = db.aspnet_Roles.ToList();
+			aspnet_Membership.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
+			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		return View(aspnet_Membership);
+			return View(aspnet_Membership);
 	}
 
 	// GET: aspnet_Membership/Edit/5

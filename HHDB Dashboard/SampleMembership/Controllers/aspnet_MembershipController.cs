@@ -63,7 +63,8 @@ namespace SampleMembership.Controllers
 			);
 			db.SaveChanges();
 
-			Roles.AddUserToRole(user.UserName, aspnet_Membership.RoleId.ToString());
+				var role = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
+			Roles.AddUserToRole(user.UserName, role.RoleName.ToString());
 
 			return RedirectToAction("Index");
 		}
@@ -91,11 +92,16 @@ namespace SampleMembership.Controllers
 		var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
 		aspnet_Membership.UserName = user.UserName;
 
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		return View(aspnet_Membership);
+			var roles = db.aspnet_Roles.ToList();
+			aspnet_Membership.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
+			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
+			//Users will only have one role
+			var userCurrentRoles = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
+			if (userCurrentRoles != null){
+				aspnet_Membership.RoleId = userCurrentRoles.RoleId;
+			}
+
+			return View(aspnet_Membership);
 	}
 
 	// POST: aspnet_Membership/Edit/5
@@ -103,36 +109,55 @@ namespace SampleMembership.Controllers
 	// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 	[HttpPost]
 	[ValidateAntiForgeryToken]
-	public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart")] aspnet_Membership aspnet_Membership)
+	public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart,RoleId")] aspnet_Membership aspnet_Membership)
 	{
-		if (ModelState.IsValid)
-		{
-
-			if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange))
+			if (ModelState.IsValid)
 			{
-				var member = Membership.GetUser(aspnet_Membership.UserName.ToString());
-				if (member != null)
+
+				if (!String.IsNullOrWhiteSpace(aspnet_Membership.passwordChange))
 				{
-					var passwordReset = Membership.EnablePasswordReset;
-					var result = member.ChangePassword(member.ResetPassword(), aspnet_Membership.passwordChange);
-					aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
+					var member = Membership.GetUser(aspnet_Membership.UserName.ToString());
+					if (member != null)
+					{
+						var passwordReset = Membership.EnablePasswordReset;
+						var result = member.ChangePassword(member.ResetPassword(), aspnet_Membership.passwordChange);
+						aspnet_Membership.LastPasswordChangedDate = DateTime.Now;
+					}
+					else
+					{
+						ModelState.AddModelError(string.Empty, "Error occured updating user password.");
+					}
+				}
+				//If Role changed, delete old one and add new role
+				var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
+				var userCurrentRole = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
+				var addUserRole = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
+
+				if (userCurrentRole != null)
+				{
+					var userCurrentRoleName = (db.aspnet_Roles.Where(e => e.RoleId == userCurrentRole.RoleId).FirstOrDefault()).RoleName;
+					if (userCurrentRole.RoleId != aspnet_Membership.RoleId)
+					{
+						Roles.RemoveUserFromRole(aspnet_Membership.UserName.ToString(), userCurrentRoleName.ToString());
+						Roles.AddUserToRole(aspnet_Membership.UserName.ToString(), addUserRole.RoleName.ToString());
+					}
 				}
 				else
 				{
-					ModelState.AddModelError(string.Empty, "Error occured updating user password.");
+					Roles.AddUserToRole(aspnet_Membership.UserName.ToString(), addUserRole.RoleName.ToString());
 				}
-			}
 
-
-			db.Entry(aspnet_Membership).State = EntityState.Modified;
+				db.Entry(aspnet_Membership).State = EntityState.Modified;
 			db.SaveChanges();
 			return RedirectToAction("Index");
 		}
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_Membership.ApplicationId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		ViewBag.UserId = new SelectList(db.aspnet_Users, "UserId", "UserName", aspnet_Membership.UserId);
-		return View(aspnet_Membership);
+
+
+			var roles = db.aspnet_Roles.ToList();
+			aspnet_Membership.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
+			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
+
+			return View(aspnet_Membership);
 	}
 
 	// GET: aspnet_Membership/Delete/5

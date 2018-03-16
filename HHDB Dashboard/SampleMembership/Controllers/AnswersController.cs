@@ -29,7 +29,9 @@ namespace SampleMembership.Controllers
             ViewBag.MonthSortParm = sortOrder == "Month" ? "month_desc" : "Month";
             //Create by user
             ViewBag.CreateSortParm = sortOrder == "Create" ? "create_desc" : "Create";
-            var answers = db.Answers.Include(a => a.SurveyXQuestion);
+            var answers = db.Answers
+                .Include(a => a.SurveyXQuestion)
+                .Include(a => a.aspnet_Users);
 
             //search year
             if(search != null)
@@ -76,6 +78,9 @@ namespace SampleMembership.Controllers
                     break;
 
             }
+
+            
+
             return View(answers.ToList());
         }
 

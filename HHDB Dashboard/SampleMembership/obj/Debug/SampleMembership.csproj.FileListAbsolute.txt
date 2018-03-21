@@ -862,3 +862,4 @@ C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembershi
 C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.dll
 C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.pdb
 C:\Users\Cord\Desktop\Git4\HHDB\HHDB Dashboard\SampleMembership\bin\DotNet.Highcharts.dll
+C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csprojResolveAssemblyReference.cache

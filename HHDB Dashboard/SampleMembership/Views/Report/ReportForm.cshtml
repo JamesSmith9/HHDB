@@ -10,7 +10,13 @@
 @using (Html.BeginForm("ReportForm", "CHANGEME", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <form>
+        <select>
+            @foreach (var item in Model.SurveyQuestions)
+            {
+                <option value="<%= @item.QuestionID %>">@item.QText</option>
+            }
 
+        </select>
 
 
 

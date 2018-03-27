@@ -1,24 +1,21 @@
-﻿
+﻿@model IEnumerable<SampleMembership.Models.Survey>
 @{
     ViewBag.Title = "Index";
 }
-<br />
-<br />
-<h2>Report Generator</h2>
+<h2>Reports</h2>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <br />
-    <br />
-    <select style="color:black; width:20%" name="type">
-        <option style="color:black" value="r1">Report Type1</option>
-        <option style="color:black" value="r2">Report Type2</option>
-        <option style="color:black" value="r3">Report Type3</option>
-        <option style="color:black" value="g1">Graph Type1</option>
-        <option style="color:black" value="g2">Graph Type2</option>
-    </select>
-    <br />
-    <br />
-    <input type="submit" value="Generate" />
-}
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.ActionLink("Generate Report", "ReportForm", new { id = item.SurveyID })
+            </td>
+        </tr>
+    }
+</table>
 

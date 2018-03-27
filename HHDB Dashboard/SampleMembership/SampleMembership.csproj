@@ -199,7 +199,11 @@
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\ReportsController.cs" />
+=======
+    <Compile Include="Controllers\ReportController.cs" />
+>>>>>>> bbcd44dc38a76a8bac4939b96cd6ba596a560451
     <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\SurveyXQuestionsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -406,8 +410,13 @@
     <Content Include="Views\aspnet_Membership\Index.cshtml" />
     <Content Include="Views\Import\ImportForm.cshtml" />
     <Content Include="Web.config" />
+<<<<<<< HEAD
     <Content Include="Views\Reports\PieChart.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+=======
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\ReportForm.cshtml" />
+>>>>>>> bbcd44dc38a76a8bac4939b96cd6ba596a560451
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

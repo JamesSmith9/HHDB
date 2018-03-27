@@ -199,6 +199,7 @@
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\SurveyXQuestionsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -405,6 +406,8 @@
     <Content Include="Views\aspnet_Membership\Index.cshtml" />
     <Content Include="Views\Import\ImportForm.cshtml" />
     <Content Include="Web.config" />
+    <Content Include="Views\Reports\PieChart.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

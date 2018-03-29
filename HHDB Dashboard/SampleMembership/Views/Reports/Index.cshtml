@@ -1,18 +1,20 @@
 ﻿@model IEnumerable<SampleMembership.Models.Survey>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Reports</h2>
 
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
 
-<td> Populating With Hardcoded Data</td> 
-
-   @Html.DropDownList("MySkills", new List<SelectListItem>
-{
-   new SelectListItem{ Text="Survey 1", Value = "1" },
-   new SelectListItem{ Text="Survey 2", Value = "2" },
-   new SelectListItem{ Text="Survey 3", Value = "3" },
-   new SelectListItem{ Text="Survey 4", Value = "4" },
-
-})
-  
-
-
-
-  
+            <td>
+                @Html.ActionLink("Generate Report", "ReportForm", new { id = item.SurveyID })
+            </td>
+        </tr>
+    }
+</table>

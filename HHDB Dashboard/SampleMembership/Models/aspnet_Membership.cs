@@ -49,7 +49,11 @@ namespace SampleMembership.Models
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual aspnet_Users aspnet_Users1 { get; set; }
 
+		[Display(Name = "Roles")]
 		public IEnumerable<SelectListItem> UserRoles { get; set; }
+
+		[Display(Name = "Role")]
+		public string assignedRoleName { get; set; }
 		[Required]
 		public Guid RoleId { get; set; }
 	}

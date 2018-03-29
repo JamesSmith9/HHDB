@@ -19,6 +19,16 @@ namespace SampleMembership.Controllers
 		public ActionResult Index()
 		{
 			var aspnet_Membership = db.aspnet_Membership.ToList();
+			var Roles = db.aspnet_Roles.ToList();
+			var userRoles = db.aspnet_UsersInRoles.ToList();
+			foreach (aspnet_Membership user in aspnet_Membership)
+			{
+				if (userRoles.Any(p => p.UserId == user.UserId))
+				{
+					var roles = userRoles.Where(p => p.UserId == user.UserId).FirstOrDefault();
+					user.assignedRoleName = (Roles.Where(l => l.RoleId == roles.RoleId).FirstOrDefault()).RoleName;
+				}
+			}
 			return View(aspnet_Membership);
 		}
 
@@ -38,79 +48,85 @@ namespace SampleMembership.Controllers
 					IsApproved = true
 				};
 			}
-			
+
 			var roles = db.aspnet_Roles.ToList();
 			viewModel.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
 			viewModel.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 
 			return View(viewModel);
 		}
-	
 
-	// POST: aspnet_Membership/Create
-	// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-	// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public ActionResult Create([Bind(Include = "UserName,Password,IsLockedOut,Comment,RoleId,ApplicationId")] aspnet_Membership aspnet_Membership)
-	{
-		if (ModelState.IsValid)
+
+		// POST: aspnet_Membership/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "UserName,Password,IsLockedOut,Comment,RoleId,ApplicationId")] aspnet_Membership aspnet_Membership)
 		{
-			MembershipUser user = Membership.CreateUser
-			(
-				aspnet_Membership.UserName,
-				aspnet_Membership.Password
-			);
-			db.SaveChanges();
+			if (ModelState.IsValid)
+			{
+				MembershipUser user = Membership.CreateUser
+				(
+					aspnet_Membership.UserName,
+					aspnet_Membership.Password
+				);
+				db.SaveChanges();
 
-				var role = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
-			Roles.AddUserToRole(user.UserName, role.RoleName.ToString());
+				aspnet_UsersInRoles addRoleToUser = new aspnet_UsersInRoles
+				{
+					UserId = (Guid)user.ProviderUserKey,
+					RoleId = aspnet_Membership.RoleId
+				};
+				db.aspnet_UsersInRoles.Add(addRoleToUser);
 
-			return RedirectToAction("Index");
-		}
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
 			var roles = db.aspnet_Roles.ToList();
 			aspnet_Membership.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
 			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 
 			return View(aspnet_Membership);
-	}
-
-	// GET: aspnet_Membership/Edit/5
-	public ActionResult Edit(Guid? id)
-	{
-		if (id == null)
-		{
-			return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-		}
-		aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
-
-		if (aspnet_Membership == null)
-		{
-			return HttpNotFound();
 		}
 
-		var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
-		aspnet_Membership.UserName = user.UserName;
+		// GET: aspnet_Membership/Edit/5
+		public ActionResult Edit(Guid? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
+
+			if (aspnet_Membership == null)
+			{
+				return HttpNotFound();
+			}
+
+			var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
+			aspnet_Membership.UserName = user.UserName;
 
 			var roles = db.aspnet_Roles.ToList();
 			aspnet_Membership.UserRoles = roles.Select(role => new SelectListItem() { Selected = false, Text = role.RoleName, Value = role.RoleId.ToString() }).ToList();
 			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 			//Users will only have one role
 			var userCurrentRoles = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
-			if (userCurrentRoles != null){
+			if (userCurrentRoles != null)
+			{
 				aspnet_Membership.RoleId = userCurrentRoles.RoleId;
 			}
 
 			return View(aspnet_Membership);
-	}
+		}
 
-	// POST: aspnet_Membership/Edit/5
-	// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-	// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart,RoleId")] aspnet_Membership aspnet_Membership)
-	{
+		// POST: aspnet_Membership/Edit/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit([Bind(Include = "UserName,Password,PasswordFormat,PasswordSalt,CreateDate,ApplicationId,UserId,LastLoginDate,LoweredEmail,passwordChange,IsApproved,IsLockedOut,Comment,LastLockoutDate,FailedPasswordAttemptCount,FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart,RoleId, LastPasswordChangedDate")] aspnet_Membership aspnet_Membership)
+		{
 			if (ModelState.IsValid)
 			{
 
@@ -128,29 +144,44 @@ namespace SampleMembership.Controllers
 						ModelState.AddModelError(string.Empty, "Error occured updating user password.");
 					}
 				}
-				//If Role changed, delete old one and add new role
+				//If Role selected in dropdown, Add or Change Users
 				var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
-				var userCurrentRole = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
-				var addUserRole = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
 
-				if (userCurrentRole != null)
+				if (aspnet_Membership.RoleId != null)
 				{
-					var userCurrentRoleName = (db.aspnet_Roles.Where(e => e.RoleId == userCurrentRole.RoleId).FirstOrDefault()).RoleName;
-					if (userCurrentRole.RoleId != aspnet_Membership.RoleId)
+					var userCurrentRole = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
+					var addRole = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
+					var application = db.aspnet_Applications.Where(p => p.ApplicationId == user.ApplicationId).FirstOrDefault();
+
+					aspnet_UsersInRoles addRoleToUser = new aspnet_UsersInRoles
 					{
-						Roles.RemoveUserFromRole(aspnet_Membership.UserName.ToString(), userCurrentRoleName.ToString());
-						Roles.AddUserToRole(aspnet_Membership.UserName.ToString(), addUserRole.RoleName.ToString());
+						UserId = user.UserId,
+						RoleId = addRole.RoleId
+					};
+					//If the User already had a role and they do not already have the role selected
+					if (userCurrentRole == null)
+					{
+						db.aspnet_UsersInRoles.Add(addRoleToUser);
 					}
-				}
-				else
-				{
-					Roles.AddUserToRole(aspnet_Membership.UserName.ToString(), addUserRole.RoleName.ToString());
+					else
+					{
+						if (!db.aspnet_UsersInRoles.Any(r => r.RoleId == addRoleToUser.RoleId && r.UserId == addRoleToUser.UserId))
+						{
+							var userCurrentRoleName = (db.aspnet_Roles.Where(e => e.RoleId == userCurrentRole.RoleId).FirstOrDefault()).RoleName;
+							if (userCurrentRole.RoleId != aspnet_Membership.RoleId)
+							{
+								db.aspnet_UsersInRoles.Remove(userCurrentRole);
+								db.aspnet_UsersInRoles.Add(addRoleToUser);
+							}
+						}
+					}
+
 				}
 
 				db.Entry(aspnet_Membership).State = EntityState.Modified;
-			db.SaveChanges();
-			return RedirectToAction("Index");
-		}
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
 
 
 			var roles = db.aspnet_Roles.ToList();
@@ -158,41 +189,41 @@ namespace SampleMembership.Controllers
 			aspnet_Membership.ApplicationId = db.aspnet_Applications.Where(a => a.ApplicationName == "Hubbard House Survey Analysis System").SingleOrDefault().ApplicationId;
 
 			return View(aspnet_Membership);
-	}
-
-	// GET: aspnet_Membership/Delete/5
-	public ActionResult Delete(Guid? id)
-	{
-		if (id == null)
-		{
-			return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 		}
-		aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
-		if (aspnet_Membership == null)
-		{
-			return HttpNotFound();
-		}
-		return View(aspnet_Membership);
-	}
 
-	// POST: aspnet_Membership/Delete/5
-	[HttpPost, ActionName("Delete")]
-	[ValidateAntiForgeryToken]
-	public ActionResult DeleteConfirmed(Guid id)
-	{
-		aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
-		db.aspnet_Membership.Remove(aspnet_Membership);
-		db.SaveChanges();
-		return RedirectToAction("Index");
-	}
-
-	protected override void Dispose(bool disposing)
-	{
-		if (disposing)
+		// GET: aspnet_Membership/Delete/5
+		public ActionResult Delete(Guid? id)
 		{
-			db.Dispose();
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
+			if (aspnet_Membership == null)
+			{
+				return HttpNotFound();
+			}
+			return View(aspnet_Membership);
 		}
-		base.Dispose(disposing);
+
+		// POST: aspnet_Membership/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(Guid id)
+		{
+			aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
+			db.aspnet_Membership.Remove(aspnet_Membership);
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 	}
-}
 }

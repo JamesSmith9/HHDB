@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -53,10 +54,29 @@ namespace SampleMembership.Controllers
             return Json(lstSummary.ToList(), JsonRequestBehavior.AllowGet);
         }
         // GET: Reports
-        public ActionResult Index()
+        public ActionResult Index() => View(db.Surveys.ToList());
+
+
+        public ActionResult ReportForm(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = db.Surveys.Find(id);
+
+            if (survey == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Gets Active and Inactive Survey Questions
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+                .Select(x => x.Question).ToList();
+
+            return View(survey);
         }
+
 
         public ActionResult PieChart()
         {

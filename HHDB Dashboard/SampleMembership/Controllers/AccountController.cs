@@ -77,6 +77,8 @@ namespace SampleMembership.Controllers
             if (Membership.ValidateUser(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, true);
+				
+				var userRoles = Roles.GetRolesForUser();
                 return RedirectToAction("Index", "Home");
             }
 

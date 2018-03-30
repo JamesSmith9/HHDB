@@ -17,9 +17,6 @@ namespace SampleMembership.Controllers
 
         public ActionResult About()
         {
-
-//            bool result = Roles.IsUserInRole("Scott", "TestRole");
-
             ViewBag.Message = "Your application description page.";
 
             return View();

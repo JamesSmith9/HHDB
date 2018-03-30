@@ -15,6 +15,7 @@ namespace SampleMembership.Controllers
 	{
 		private HHDBEntities db = new HHDBEntities();
 
+		[Authorize(Roles = "SiteAdmin")]
 		// GET: aspnet_Membership
 		public ActionResult Index()
 		{

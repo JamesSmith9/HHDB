@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SampleMembership.Models;
+using System.Threading.Tasks;
 
 namespace SampleMembership.Controllers
 {
@@ -18,9 +19,10 @@ namespace SampleMembership.Controllers
 
 		// GET: api/Controller
 		[HttpGet]
-		public IQueryable<Answer> GetAnswers()
+		public async Task<IEnumerable<Answer>> GetAnswersAsync()
         {
-            return db.Answers;
+			var answers = await db.Answers.ToListAsync();
+            return answers;
         }
 
         // GET: api/Highcharts/5

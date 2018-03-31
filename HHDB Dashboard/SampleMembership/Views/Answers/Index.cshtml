@@ -61,7 +61,7 @@
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SurveyXQuestion.SXQID)
+                    @Html.DisplayFor(modelItem => item.Q[0].QText)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.AnswerID }) |

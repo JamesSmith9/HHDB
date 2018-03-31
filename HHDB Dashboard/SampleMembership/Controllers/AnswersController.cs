@@ -33,6 +33,12 @@ namespace SampleMembership.Controllers
                 .Include(a => a.SurveyXQuestion)
                 .Include(a => a.aspnet_Users);
 
+            foreach (Answer a in answers)
+            {
+                a.Q = db.SurveyXQuestions.Where(x => x.SXQID == a.SXQID)
+                    .Select(x => x.Question).ToList();
+            }
+
             //search year
             if(search != null)
             {

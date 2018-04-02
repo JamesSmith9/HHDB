@@ -398,7 +398,6 @@
     <Content Include="Views\Answers\Edit.cshtml" />
     <Content Include="Views\Answers\Index.cshtml" />
     <Content Include="Views\Upload\Upload.cshtml" />
-    <Content Include="Views\Import\Form1.cshtml" />
     <Content Include="Views\aspnet_Users\Create.cshtml" />
     <Content Include="Views\aspnet_Users\Delete.cshtml" />
     <Content Include="Views\aspnet_Users\Details.cshtml" />
@@ -413,6 +412,7 @@
     <Content Include="Views\Reports\PieChart.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Reports\ReportForm.cshtml" />
+    <Content Include="Views\Surveys\SXQEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    
 </p>
     @using (Html.BeginForm())
     {
@@ -61,11 +61,10 @@
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SurveyXQuestion.SXQID)
+                    @Html.DisplayFor(modelItem => item.Q[0].QText)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.AnswerID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.AnswerID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.AnswerID })
                 </td>
             </tr>

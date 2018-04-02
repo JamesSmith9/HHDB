@@ -11,7 +11,8 @@ namespace SampleMembership.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Answer
     {
         public int SXQID { get; set; }
@@ -21,8 +22,12 @@ namespace SampleMembership.Models
         public short Month { get; set; }
         public short Year { get; set; }
         public int Quantity { get; set; }
-    
+
         public virtual SurveyXQuestion SurveyXQuestion { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
+
+
+        [Display(Name = "Q")]
+        public List<Question> Q = new List<Question>();
     }
 }

@@ -30,13 +30,14 @@
     <form>
 
         Select a question to add: <br />
-        <select name="QuestionToAdd">
+        <!--<select name="QuestionToAdd">
             <option selected value="-1"></option>
             @foreach (var item in Model.AllQuestions)
             {
                 <option value="<%= @item.QuestionID %>">@item.QText</option>
             }
-        </select>
+        </select>-->
+        @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
         <br />
         <button>Add</button>
         @Html.HiddenFor(m => m.SurveyID)

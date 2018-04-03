@@ -14,6 +14,7 @@ namespace SampleMembership.Controllers
     {
         private HHDBEntities db = new HHDBEntities();
 
+		[Authorize]
         // GET: aspnet_Users
         public ActionResult Index()
         {

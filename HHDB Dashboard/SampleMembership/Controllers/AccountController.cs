@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -18,8 +19,9 @@ namespace SampleMembership.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+		private HHDBEntities db = new HHDBEntities();
 
-        public AccountController()
+		public AccountController()
         {
         }
 
@@ -77,9 +79,8 @@ namespace SampleMembership.Controllers
             if (Membership.ValidateUser(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, true);
-				
-				var userRoles = Roles.GetRolesForUser();
-                return RedirectToAction("Index", "Home");
+
+				return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");

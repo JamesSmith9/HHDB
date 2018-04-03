@@ -1,7 +1,6 @@
 ﻿@{
 	ViewBag.Title = "Home Page";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Highcharts Example</title>
@@ -13,70 +12,66 @@
 	<hr class="my-4">
 </div>
 <body>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
 
-	<script type="text/javascript">
-		var series = new Array();
+</body>
 
-		$(function () {
-			$.ajax({
-				url: 'api/highcharts',
-				dataType: "json",
-				type: "GET",
-				contentType: 'application/json; charset=utf-8',
-				async: false,
-				processData: false,
-				cache: false,
-				delay: 15,
-				success: function (data) {
-					for (var i in data) {
-						var serie = new Array(data[i].Value, data[i].Item);
-						series.push(serie);
-					}
-					DrawPieChart();
-				},
-				error: function (xhr) {
-					alert("unable to load data");
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Highcharts-4.0.1/js/highcharts.js"></script>
+<script type="text/javascript">
+	var series = new Array();
+
+	$(function () {
+		$.ajax({
+			url: 'api/highcharts',
+			dataType: "json",
+			type: "GET",
+			cache: false,
+			success: function (data) {
+				for (var i in data) {
+					var serie = new Array(data[i].Value, data[i].Item);
+					series.push(serie);
 				}
-			});
+				DrawPieChart();
+			},
+			error: function (xhr) {
+			}
 		});
+	});
 
 
-		function DrawPieChart(){
-			Highcharts.chart('container', {
-				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
-					type: 'pie'
-				},
-				title: {
-					text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'pointer',
-						dataLabels: {
-							enabled: true,
-							format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-							style: {
-								color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-							}
+	function DrawPieChart() {
+		Highcharts.chart('container', {
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+						style: {
+							color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
 						}
 					}
-				},
-				series: [{
-					name: 'Percentage of Surveys',
-					colorByPoint: true,
-					data: series
-				}]
-			})
-		};
-	</script>
-</body>
+				}
+			},
+			series: [{
+				name: 'Percentage of Surveys',
+				colorByPoint: true,
+				data: series
+			}]
+		})
+	};
+</script>

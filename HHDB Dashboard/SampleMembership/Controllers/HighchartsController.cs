@@ -19,103 +19,112 @@ namespace SampleMembership.Controllers
 
 		// GET: api/Controller
 		[HttpGet]
-		public IEnumerable<Answer> GetAnswersAsync()
-        {
-			var answers = db.Answers;
-            return answers;
-        }
+		public IHttpActionResult GetAnswers()
+		{
+			try
+			{
+				var chartAnswers = db.Answers.ToList();
+				var result = chartAnswers;
+				return Ok(result);
 
-        // GET: api/Highcharts/5
-        [ResponseType(typeof(Answer))]
-        public IHttpActionResult GetAnswer(int id)
-        {
-            Answer answer = db.Answers.Find(id);
-            if (answer == null)
-            {
-                return NotFound();
-            }
+			}
+			catch (System.Exception)
+			{
+				throw;
+			}
+		}
 
-            return Ok(answer);
-        }
+		// GET: api/Highcharts/5
+		[ResponseType(typeof(Answer))]
+		public IHttpActionResult GetAnswer(int id)
+		{
+			Answer answer = db.Answers.Find(id);
+			if (answer == null)
+			{
+				return NotFound();
+			}
 
-        // PUT: api/Highcharts/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutAnswer(int id, Answer answer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+			return Ok(answer);
+		}
 
-            if (id != answer.AnswerID)
-            {
-                return BadRequest();
-            }
+		// PUT: api/Highcharts/5
+		[ResponseType(typeof(void))]
+		public IHttpActionResult PutAnswer(int id, Answer answer)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            db.Entry(answer).State = EntityState.Modified;
+			if (id != answer.AnswerID)
+			{
+				return BadRequest();
+			}
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AnswerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			db.Entry(answer).State = EntityState.Modified;
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+			try
+			{
+				db.SaveChanges();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!AnswerExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
-        // POST: api/Highcharts
-        [ResponseType(typeof(Answer))]
-        public IHttpActionResult PostAnswer(Answer answer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+			return StatusCode(HttpStatusCode.NoContent);
+		}
 
-            db.Answers.Add(answer);
-            db.SaveChanges();
+		// POST: api/Highcharts
+		[ResponseType(typeof(Answer))]
+		public IHttpActionResult PostAnswer(Answer answer)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            return CreatedAtRoute("DefaultApi", new { id = answer.AnswerID }, answer);
-        }
+			db.Answers.Add(answer);
+			db.SaveChanges();
 
-        // DELETE: api/Highcharts/5
-        [ResponseType(typeof(Answer))]
-        public IHttpActionResult DeleteAnswer(int id)
-        {
-            Answer answer = db.Answers.Find(id);
-            if (answer == null)
-            {
-                return NotFound();
-            }
+			return CreatedAtRoute("DefaultApi", new { id = answer.AnswerID }, answer);
+		}
 
-            db.Answers.Remove(answer);
-            db.SaveChanges();
+		// DELETE: api/Highcharts/5
+		[ResponseType(typeof(Answer))]
+		public IHttpActionResult DeleteAnswer(int id)
+		{
+			Answer answer = db.Answers.Find(id);
+			if (answer == null)
+			{
+				return NotFound();
+			}
 
-            return Ok(answer);
-        }
+			db.Answers.Remove(answer);
+			db.SaveChanges();
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+			return Ok(answer);
+		}
 
-        private bool AnswerExists(int id)
-        {
-            return db.Answers.Count(e => e.AnswerID == id) > 0;
-        }
-    }
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		private bool AnswerExists(int id)
+		{
+			return db.Answers.Count(e => e.AnswerID == id) > 0;
+		}
+	}
 }

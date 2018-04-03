@@ -19,9 +19,9 @@ namespace SampleMembership.Controllers
 
 		// GET: api/Controller
 		[HttpGet]
-		public async Task<IEnumerable<Answer>> GetAnswersAsync()
+		public IEnumerable<Answer> GetAnswersAsync()
         {
-			var answers = await db.Answers.ToListAsync();
+			var answers = db.Answers;
             return answers;
         }
 

@@ -247,6 +247,7 @@
     <Compile Include="Models\aspnet_UsersInRoles_RemoveUsersFromRoles_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HighchartsAnswerViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model.Context.cs">

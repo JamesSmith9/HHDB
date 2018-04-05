@@ -80,7 +80,29 @@ namespace SampleMembership.Controllers
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, true);
 
-				return RedirectToAction("Index", "Home");
+                //Go find User Roles
+                var currentUser = db.aspnet_Users.Where(p => p.UserName == model.UserName).FirstOrDefault();
+                var userinRoles = db.aspnet_UsersInRoles.Where(r => r.UserId == currentUser.UserId).ToList();
+                string[] roles = new string[1];
+
+                if (userinRoles != null)
+                {
+                    foreach (var role in userinRoles)
+                    {
+                        var userRole = (db.aspnet_Roles.Where(u => u.RoleId == role.RoleId).FirstOrDefault()).RoleName;
+                        roles[0] = userRole;
+                    }
+                }
+
+                HttpCookie authCookie = HttpContext.Request.Cookies[FormsAuthentication.FormsCookieName];
+                if (authCookie != null)
+                {
+                    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                    GenericPrincipal userPrincipal = new GenericPrincipal(new GenericIdentity(authTicket.Name), roles);
+                    HttpContext.User = userPrincipal;
+                }
+
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");

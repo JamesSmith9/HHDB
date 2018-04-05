@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using SampleMembership.Models;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 
 namespace SampleMembership.Controllers
 {
@@ -19,13 +20,13 @@ namespace SampleMembership.Controllers
 
 		// GET: api/Controller
 		[HttpGet]
-		public IHttpActionResult GetAnswers()
+		public JsonResult<List<HighchartsAnswerViewModel>> GetAnswers()
 		{
 			try
 			{
 				var chartAnswers = db.Answers.ToList();
-				var result = chartAnswers;
-				return Ok(result);
+				var result = chartAnswers.Select(f => new HighchartsAnswerViewModel { AnsText = f.AnsText, AnswerID = f.AnswerID, CreatedByUser = f.CreatedByUser, Month = f.Month, Quantity = f.Quantity, SXQID = f.SXQID, Year = f.Year }).ToList();
+				return Json(result);
 
 			}
 			catch (System.Exception)

@@ -154,104 +154,102 @@ namespace SampleMembership.Controllers
             int QID = QuestionToAdd.QuestionID;
 
 
-            if (QID != -1)
+           
+            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
+            SqlConnection conn = null;
+            try
             {
-                string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-                SqlConnection conn = null;
-                try
+                conn = new SqlConnection(connString);
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    conn = new SqlConnection(connString);
-                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT INTO SurveyXQuestion (QuestionID, SurveyID) VALUES (@QuestionID, @SurveyID)";
+                    cmd.Parameters.AddWithValue("@QuestionID", QID);
+                    cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
                     {
-                        cmd.Connection = conn;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "INSERT INTO SurveyXQuestion (QuestionID, SurveyID) VALUES (@QuestionID, @SurveyID)";
-                        cmd.Parameters.AddWithValue("@QuestionID", QID);
-                        cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected == 1)
-                        {
-                            //Success notification
-                        }
-                        else
-                        {
-                            //Error notification
-                        }
+                        //Success notification
+                    }
+                    else
+                    {
+                        //Error notification
                     }
                 }
-                catch (Exception ex)
-                {
-                    string a = ex.ToString();
-                    //log error 
-                    //display friendly error to user
-                }
-                finally
-                {
-                    if (conn != null)
-                    {
-                        conn.Close();
-                    }
-                }
-
             }
+            catch (Exception ex)
+            {
+                string a = ex.ToString();
+                //log error 
+                //display friendly error to user
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            
 
             return View("Details", survey);
         }
 
-        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey, string QuestionToAdd)
+        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
         {
             survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
                 .Select(x => x.Question).ToList();
 
-            int QID = Int32.Parse(QuestionToAdd);
+            int QID = QuestionToAdd.QuestionID;
 
 
-            if (QID != -1)
+            
+            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
+            SqlConnection conn = null;
+            try
             {
-                string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-                SqlConnection conn = null;
-                try
+                conn = new SqlConnection(connString);
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    conn = new SqlConnection(connString);
-                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "DELETE FROM SurveyXQuestion WHERE QuestionID = '@QuestionID' AND SurveyID = '@SurveyID')";
+                    cmd.Parameters.AddWithValue("QuestionID", QID);
+                    cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
                     {
-                        cmd.Connection = conn;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "DELETE FROM SurveyXQuestion WHERE QuestionID = '@QuestionID' AND SurveyID = '@SurveyID')";
-                        cmd.Parameters.AddWithValue("QuestionID", QID);
-                        cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected == 1)
-                        {
-                            //Success notification
-                        }
-                        else
-                        {
-                            //Error notification
-                        }
+                        //Success notification
+                    }
+                    else
+                    {
+                        //Error notification
                     }
                 }
-                catch (Exception ex)
-                {
-                    string a = ex.ToString();
-                    //log error 
-                    //display friendly error to user
-                }
-                finally
-                {
-                    if (conn != null)
-                    {
-                        conn.Close();
-                    }
-                }
-
             }
+            catch (Exception ex)
+            {
+                string a = ex.ToString();
+                //log error 
+                //display friendly error to user
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+
+            
 
             return View("Details", survey);
         }

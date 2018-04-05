@@ -30,13 +30,7 @@
     <form>
 
         Select a question to add: <br />
-        <!--<select name="QuestionToAdd">
-            <option selected value="-1"></option>
-            @foreach (var item in Model.AllQuestions)
-            {
-                <option value="<%= @item.QuestionID %>">@item.QText</option>
-            }
-        </select>-->
+
         @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
         <br />
         <button>Add</button>
@@ -49,20 +43,14 @@
 
 @using (Html.BeginForm("SXQRemove", "Surveys", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <form>
+<form>
 
-        Select a question to remove: <br />
-        <select name="QuestionToRemove">
-            <option selected value="-1"></option>
-            @foreach (var item in Model.SurveyQuestions)
-            {
-                <option value="<%= @item.QuestionID %>">@item.QText</option>
-            }
-        </select>
-        <br />
-        <button>Remove</button>
-        @Html.HiddenFor(m => m.SurveyID)
-    </form>
+    Select a question to remove: <br />
+    @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
+    <br />
+    <button>Remove</button>
+    @Html.HiddenFor(m => m.SurveyID)
+</form>
 }
 
 

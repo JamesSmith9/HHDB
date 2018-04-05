@@ -9,35 +9,30 @@
 
 @using (Html.BeginForm("ReportForm", "CHANGEME", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <form>
-        Question:<br />
-        <select>
-            @foreach (var item in Model.SurveyQuestions)
-            {
-                <option value="<%= @item.QuestionID %>">@item.QText</option>
-            }
-        </select>
-        <br />
-        <br />
-        Start Date: <br />
-        Month(1-12): <input type="text" name="smonth" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="syear" pattern="[0-9]{4}" required />
-        <br />
-        <br />
-        End Date: <br />
-        Month(1-12): <input type="text" name="emonth" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="eyear" pattern="[0-9]{4}" required />
-        <br />
-        <br />
-        Type of Report: <br />
-        <select>
-            <option value="bar">Bar Graph</option>
-            <option value="line">Line Graph</option>
-            <option value="pie">Pie Chart</option>
-            <option value="table">Table</option>
-        </select>
-        <br />
-        <br />
-        <br />
-        <button>Submit</button>
+<form>
+    Question:<br />
+    @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
+    <br />
+    <br />
+    Start Date: <br />
+    Month(1-12): <input type="text" name="smonth" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="syear" pattern="[0-9]{4}" required />
+    <br />
+    <br />
+    End Date: <br />
+    Month(1-12): <input type="text" name="emonth" pattern="[1-9]{1}|[1-2]{2}" required /> &nbsp; &nbsp; Year(4 digit): <input type="text" name="eyear" pattern="[0-9]{4}" required />
+    <br />
+    <br />
+    Type of Report: <br />
+    <select>
+        <option value="bar">Bar Graph</option>
+        <option value="line">Line Graph</option>
+        <option value="pie">Pie Chart</option>
+        <option value="table">Table</option>
+    </select>
+    <br />
+    <br />
+    <br />
+    <button>Submit</button>
 
-    </form>
+</form>
 }

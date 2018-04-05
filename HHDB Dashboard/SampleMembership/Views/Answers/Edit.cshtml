@@ -19,6 +19,7 @@
             @Html.LabelFor(model => model.SXQID, "SXQID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Model.SXQID
+                @Html.HiddenFor(m => m.SXQID)
                 @Html.ValidationMessageFor(model => model.SXQID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,6 +28,7 @@
             @Html.LabelFor(model => model.AnsText, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Model.AnsText
+                @Html.HiddenFor(m => m.AnsText)
                 @Html.ValidationMessageFor(model => model.AnsText, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,6 +37,7 @@
             @Html.LabelFor(model => model.CreatedByUser, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Model.aspnet_Users.UserName
+                @Html.HiddenFor(m => m.CreatedByUser)
                 @Html.ValidationMessageFor(model => model.CreatedByUser, "", new { @class = "text-danger" })
             </div>
         </div>

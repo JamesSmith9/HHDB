@@ -14,14 +14,16 @@
 		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-		<div class="form-group">
+        @if (User.IsInRole("SiteAdmin"))
+        {
+        <div class="form-group">
 			@Html.Label("User Roles", new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
 				@Html.DropDownListFor(model => model.RoleId, Model.UserRoles, "[Not specified]", new { @class = "form-control input-sm" })
 				@Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
 			</div>
 		</div>
-
+        }
 		<div class="form-group">
 			@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">

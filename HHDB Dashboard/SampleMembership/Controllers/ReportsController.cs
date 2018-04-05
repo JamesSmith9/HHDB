@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace SampleMembership.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
 

@@ -11,6 +11,7 @@ using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
 {
+    [Authorize]
     public class AnswersController : Controller
     {
         private HHDBEntities db = new HHDBEntities();

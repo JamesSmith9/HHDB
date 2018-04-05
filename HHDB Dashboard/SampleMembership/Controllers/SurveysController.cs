@@ -12,12 +12,16 @@ using System.Configuration;
 
 namespace SampleMembership.Controllers
 {
+    [Authorize]
     public class SurveysController : Controller
     {
         private HHDBEntities db = new HHDBEntities();
 
         // GET: Surveys
-        public ActionResult Index => View(db.Surveys.ToList());
+        public ActionResult Index()
+        {
+            return View(db.Surveys.ToList());
+        }
 
         // GET: Surveys/Details/5
         public ActionResult Details(int? id)

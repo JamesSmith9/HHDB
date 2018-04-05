@@ -10,6 +10,7 @@ using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
 {
+    [Authorize]
     public class SurveyXQuestionsController : Controller
     {
         private HHDBEntities db = new HHDBEntities();

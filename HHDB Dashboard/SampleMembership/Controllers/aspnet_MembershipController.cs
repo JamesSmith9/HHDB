@@ -11,11 +11,10 @@ using SampleMembership.Models;
 
 namespace SampleMembership.Controllers
 {
-	public class aspnet_MembershipController : Controller
+    public class aspnet_MembershipController : Controller
 	{
 		private HHDBEntities db = new HHDBEntities();
 
-		[Authorize(Roles = "SiteAdmin")]
 		// GET: aspnet_Membership
 		public ActionResult Index()
 		{
@@ -33,12 +32,12 @@ namespace SampleMembership.Controllers
 			return View(aspnet_Membership);
 		}
 
-		// GET: aspnet_Membership/Create
-		public ActionResult Create(int memberId = 0)
+        [Authorize(Roles = "SiteAdmin")]
+        // GET: aspnet_Membership/Create
+        public ActionResult Create(int memberId = 0)
 		{
 			return CreateView(memberId);
 		}
-
 
 		private ActionResult CreateView(int memberId, aspnet_Membership viewModel = null)
 		{
@@ -94,11 +93,19 @@ namespace SampleMembership.Controllers
 		// GET: aspnet_Membership/Edit/5
 		public ActionResult Edit(Guid? id)
 		{
+            var currentUser = Membership.GetUser();
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
+
+            //Edit only accessible if user is SiteAdmin Role or User is trying to edit current account
+            if (!User.IsInRole("SiteAdmin") && (Guid) currentUser.ProviderUserKey != id)
+            {
+                return RedirectToAction("Index");
+            }
+
+            aspnet_Membership aspnet_Membership = db.aspnet_Membership.Find(id);
 
 			if (aspnet_Membership == null)
 			{

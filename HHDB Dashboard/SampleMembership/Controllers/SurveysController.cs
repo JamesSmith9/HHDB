@@ -17,10 +17,7 @@ namespace SampleMembership.Controllers
         private HHDBEntities db = new HHDBEntities();
 
         // GET: Surveys
-        public ActionResult Index()
-        {
-            return View(db.Surveys.ToList());
-        }
+        public ActionResult Index => View(db.Surveys.ToList());
 
         // GET: Surveys/Details/5
         public ActionResult Details(int? id)
@@ -149,12 +146,12 @@ namespace SampleMembership.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey, string QuestionToAdd)
+        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
         {
             survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
                 .Select(x => x.Question).ToList();
 
-            int QID = Int32.Parse(QuestionToAdd);
+            int QID = QuestionToAdd.QuestionID;
 
 
             if (QID != -1)
@@ -171,7 +168,7 @@ namespace SampleMembership.Controllers
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = "INSERT INTO SurveyXQuestion (QuestionID, SurveyID) VALUES (@QuestionID, @SurveyID)";
-                        cmd.Parameters.AddWithValue("QuestionID", QID);
+                        cmd.Parameters.AddWithValue("@QuestionID", QID);
                         cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
 
                         int rowsAffected = cmd.ExecuteNonQuery();

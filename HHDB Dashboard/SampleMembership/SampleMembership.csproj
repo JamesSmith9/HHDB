@@ -437,6 +437,7 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Reports\ReportForm.cshtml" />
     <Content Include="Views\Surveys\SXQEdit.cshtml" />
+    <Content Include="Views\Surveys\SXQRemoveFrom.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

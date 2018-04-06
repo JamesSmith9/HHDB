@@ -144,6 +144,27 @@ namespace SampleMembership.Controllers
             return View(survey);
         }
 
+        public ActionResult SXQRemoveFrom(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = db.Surveys.Find(id);
+            if (survey == null)
+            {
+                return HttpNotFound();
+            }
+
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+                .Select(x => x.Question).ToList();
+
+            survey.AllQuestions = db.Questions.ToList();
+
+
+            return View(survey);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -153,12 +174,11 @@ namespace SampleMembership.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
+        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey)
         {
-            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question).ToList();
 
-            int QID = QuestionToAdd.QuestionID;
+
+            int QID = Int32.Parse(Request.Form["qAdd"]);
 
 
            
@@ -202,17 +222,20 @@ namespace SampleMembership.Controllers
                 }
             }
 
-            
+
+
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+    .Select(x => x.Question).ToList();
+
 
             return View("Details", survey);
         }
 
-        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
+        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey)
         {
-            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question).ToList();
 
-            int QID = QuestionToAdd.QuestionID;
+
+            int QID = Int32.Parse(Request.Form["qRemove"]);
 
 
             
@@ -256,7 +279,10 @@ namespace SampleMembership.Controllers
                 }
             }
 
-            
+
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+    .Select(x => x.Question).ToList();
+
 
             return View("Details", survey);
         }

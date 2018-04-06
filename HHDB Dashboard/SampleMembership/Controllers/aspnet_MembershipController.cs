@@ -73,6 +73,8 @@ namespace SampleMembership.Controllers
 				);
 				db.SaveChanges();
 
+                user.Comment = aspnet_Membership.Comment.ToString();
+
 				aspnet_UsersInRoles addRoleToUser = new aspnet_UsersInRoles
 				{
 					UserId = (Guid)user.ProviderUserKey,
@@ -155,35 +157,37 @@ namespace SampleMembership.Controllers
 				//If Role selected in dropdown, Add or Change Users
 				var user = db.aspnet_Users.Where(a => a.UserId == aspnet_Membership.UserId).FirstOrDefault();
 
-				if (aspnet_Membership.RoleId != null)
+				if (aspnet_Membership.RoleId != Guid.Empty)
 				{
 					var userCurrentRole = db.aspnet_UsersInRoles.Where(e => e.UserId == user.UserId).FirstOrDefault();
 					var addRole = db.aspnet_Roles.Where(e => e.RoleId == aspnet_Membership.RoleId).FirstOrDefault();
 					var application = db.aspnet_Applications.Where(p => p.ApplicationId == user.ApplicationId).FirstOrDefault();
 
-					aspnet_UsersInRoles addRoleToUser = new aspnet_UsersInRoles
-					{
-						UserId = user.UserId,
-						RoleId = addRole.RoleId
-					};
-					//If the User already had a role and they do not already have the role selected
-					if (userCurrentRole == null)
-					{
-						db.aspnet_UsersInRoles.Add(addRoleToUser);
-					}
-					else
-					{
-						if (!db.aspnet_UsersInRoles.Any(r => r.RoleId == addRoleToUser.RoleId && r.UserId == addRoleToUser.UserId))
-						{
-							var userCurrentRoleName = (db.aspnet_Roles.Where(e => e.RoleId == userCurrentRole.RoleId).FirstOrDefault()).RoleName;
-							if (userCurrentRole.RoleId != aspnet_Membership.RoleId)
-							{
-								db.aspnet_UsersInRoles.Remove(userCurrentRole);
-								db.aspnet_UsersInRoles.Add(addRoleToUser);
-							}
-						}
-					}
-
+                    if (addRole != null)
+                    {
+                        aspnet_UsersInRoles addRoleToUser = new aspnet_UsersInRoles
+                        {
+                            UserId = user.UserId,
+                            RoleId = addRole.RoleId
+                        };
+                        //If the User already had a role and they do not already have the role selected
+                        if (userCurrentRole == null)
+                        {
+                            db.aspnet_UsersInRoles.Add(addRoleToUser);
+                        }
+                        else
+                        {
+                            if (!db.aspnet_UsersInRoles.Any(r => r.RoleId == addRoleToUser.RoleId && r.UserId == addRoleToUser.UserId))
+                            {
+                                var userCurrentRoleName = (db.aspnet_Roles.Where(e => e.RoleId == userCurrentRole.RoleId).FirstOrDefault()).RoleName;
+                                if (userCurrentRole.RoleId != aspnet_Membership.RoleId)
+                                {
+                                    db.aspnet_UsersInRoles.Remove(userCurrentRole);
+                                    db.aspnet_UsersInRoles.Add(addRoleToUser);
+                                }
+                            }
+                        }
+                    }
 				}
 
 				db.Entry(aspnet_Membership).State = EntityState.Modified;

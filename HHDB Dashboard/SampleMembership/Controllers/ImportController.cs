@@ -16,8 +16,12 @@ namespace SampleMembership.Controllers
         private HHDBEntities db = new HHDBEntities();
 
         // GET: Import
-        public ActionResult Index() => View(db.Surveys.ToList());
+        public ActionResult Index()
+        {
+            return View(db.Answers.ToList());
+        }
 
+        [Authorize(Roles = "Administrator, User")]
         // GET: Import/Form1
         public ActionResult Form1()
         {

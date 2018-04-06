@@ -20,9 +20,6 @@ namespace SampleMembership.Controllers
         // GET: Answers
         public ActionResult Index(string sortOrder, int? search, int? month, int? question)
         {
-
-            
-
             //Sorting Anwers
             //Year
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Year_desc" : "";
@@ -106,6 +103,7 @@ namespace SampleMembership.Controllers
             return View(answer);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         // GET: Answers/Create
         public ActionResult Create()
         {
@@ -116,6 +114,7 @@ namespace SampleMembership.Controllers
         // POST: Answers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SiteAdmin, StandardUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SXQID,AnsText,CreatedByUser,AnswerID,Month,Year,Quantity")] Answer answer)
@@ -131,6 +130,7 @@ namespace SampleMembership.Controllers
             return View(answer);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         // GET: Answers/Edit/5
         public ActionResult Edit(int? id)
         {

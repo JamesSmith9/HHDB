@@ -32,7 +32,7 @@ namespace SampleMembership.Controllers
 			return View(aspnet_Membership);
 		}
 
-        [Authorize(Roles = "SiteAdmin")]
+        [Authorize(Roles = "Administrator")]
         // GET: aspnet_Membership/Create
         public ActionResult Create(int memberId = 0)
 		{
@@ -100,7 +100,7 @@ namespace SampleMembership.Controllers
 			}
 
             //Edit only accessible if user is SiteAdmin Role or User is trying to edit current account
-            if (!User.IsInRole("SiteAdmin") && (Guid) currentUser.ProviderUserKey != id)
+            if (!User.IsInRole("Administrator") && (Guid) currentUser.ProviderUserKey != id)
             {
                 return RedirectToAction("Index");
             }
@@ -199,8 +199,9 @@ namespace SampleMembership.Controllers
 			return View(aspnet_Membership);
 		}
 
-		// GET: aspnet_Membership/Delete/5
-		public ActionResult Delete(Guid? id)
+        [Authorize(Roles = "Administrator")]
+        // GET: aspnet_Membership/Delete/5
+        public ActionResult Delete(Guid? id)
 		{
 			if (id == null)
 			{

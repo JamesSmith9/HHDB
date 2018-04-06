@@ -36,6 +36,7 @@ namespace SampleMembership.Controllers
             return View(question);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         // GET: Questions/Create
         public ActionResult Create()
         {
@@ -59,6 +60,7 @@ namespace SampleMembership.Controllers
             return View(question);
         }
 
+        [Authorize(Roles = "Administrator, User")]
         // GET: Questions/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -90,6 +92,7 @@ namespace SampleMembership.Controllers
             return View(question);
         }
 
+        [Authorize(Roles = "Administrator")]
         // GET: Questions/Delete/5
         public ActionResult Delete(int? id)
         {

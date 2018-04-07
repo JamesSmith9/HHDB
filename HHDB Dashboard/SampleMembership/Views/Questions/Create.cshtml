@@ -37,8 +37,11 @@
             @Html.LabelFor(model => model.QuestionType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.QuestionType)
-                    @Html.ValidationMessageFor(model => model.QuestionType, "", new { @class = "text-danger" })
+                <select name="QType">
+                    <option value="1">Yes/No</option>
+                    <option value="2">Likert 1-5</option>
+                    <option value="3">Comment</option>
+                </select>
                 </div>
             </div>
         </div>

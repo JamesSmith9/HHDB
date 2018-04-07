@@ -48,16 +48,18 @@ namespace SampleMembership.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuestionID,QText,Active,QuestionType")] Question question)
+        public ActionResult Create([Bind(Include = "QuestionID,QText,Active")] Question question, string QType)
         {
+            question.QuestionType = short.Parse(QType);
+
             if (ModelState.IsValid)
             {
                 db.Questions.Add(question);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Surveys", null);
             }
 
-            return View(question);
+            return View("Index", "Surveys", null);
         }
 
         [Authorize(Roles = "Administrator, User")]

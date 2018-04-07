@@ -9,8 +9,8 @@
 <div>
     <h4>@Model.Name</h4>
     <p>
-        @Html.ActionLink("Add Survey Questions", "SXQEdit", "Surveys", new { id = Model.SurveyID }, null) |
-        @Html.ActionLink("Remove Survey Questions", "SXQRemoveFrom", "Surveys", new { id = Model.SurveyID }, null) |
+        @Html.ActionLink("Add Questions to Survey", "SXQEdit", "Surveys", new { id = Model.SurveyID }, null) |
+        @Html.ActionLink("Create Questions", "Create", "Questions", null) |
         @Html.ActionLink("Back to Surveys", "Index")
     </p>
     <hr />

@@ -231,60 +231,6 @@ namespace SampleMembership.Controllers
             return View("Details", survey);
         }
 
-        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey)
-        {
 
-
-            int QID = Int32.Parse(Request.Form["qRemove"]);
-
-
-            
-            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-            SqlConnection conn = null;
-            try
-            {
-                conn = new SqlConnection(connString);
-                conn.Open();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "DELETE FROM SurveyXQuestion WHERE QuestionID = '@QuestionID' AND SurveyID = '@SurveyID')";
-                    cmd.Parameters.AddWithValue("QuestionID", QID);
-                    cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 1)
-                    {
-                        //Success notification
-                    }
-                    else
-                    {
-                        //Error notification
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string a = ex.ToString();
-                //log error 
-                //display friendly error to user
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-
-
-            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-    .Select(x => x.Question).ToList();
-
-
-            return View("Details", survey);
-        }
     }
 }

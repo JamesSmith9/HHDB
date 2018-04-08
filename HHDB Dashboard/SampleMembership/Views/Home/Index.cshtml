@@ -1,78 +1,78 @@
 ﻿@{
-	ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Highcharts Example</title>
-	<style type="text/css">
-	</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Highcharts Example</title>
+    <style type="text/css">
+    </style>
 </head>
 <div>
-	<h2 class="display-3">Hubbard House Survey Analysis Dashboard</h2>
-	<hr class="my-4">
+    <h2 class="display-3">Hubbard House Survey Analysis Dashboard</h2>
+    <hr class="my-4">
 </div>
 <body>
-	<div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
+    <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
 
 </body>
 
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script src="~/Scripts/Highcharts-4.0.1/js/highcharts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript">
-	var series = new Array();
+    var series = new Array();
 
-	$(function () {
-		$.ajax({
-			url: 'api/highcharts',
-			dataType: "json",
-			type: "GET",
-			cache: false,
-			success: function (data) {
-				for (var i in data) {
-					var serie = new Array(data[i].Value, data[i].Item);
-					series.push(serie);
-				}
-				DrawPieChart();
-			},
+    $(function () {
+        $.ajax({
+            url: 'api/highcharts',
+            dataType: "json",
+            type: "GET",
+            cache: false,
+            success: function (data) {
+                for (var i in data) {
+                    var serie = new Array(data[i].Quantity, data[i].Month);
+                    series.push(serie);
+                }
+                DrawPieChart();
+            },
             error: function (xhr) {
                 alert(xhr);
-			}
-		});
-	});
+            }
+        });
+    });
 
 
-	function DrawPieChart() {
-		Highcharts.chart('container', {
-			chart: {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
-			},
-			title: {
-				text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
-			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-						style: {
-							color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-						}
-					}
-				}
-			},
-			series: [{
-				name: 'Percentage of Surveys',
-				colorByPoint: true,
-				data: series
-			}]
-		})
-	};
+    function DrawPieChart() {
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Percentage of Surveys',
+                colorByPoint: true,
+                data: series
+            }]
+        })
+    };
 </script>

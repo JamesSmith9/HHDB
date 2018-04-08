@@ -1198,3 +1198,7 @@ C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembershi
 C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.dll
 C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.pdb
 C:\Users\Elizabeth.Thompson\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\obj\Debug\SampleMembership.csprojResolveAssemblyReference.cache
+C:\Users\Zaad\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\Google.Protobuf.dll
+C:\Users\Zaad\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\MySql.Data.dll
+C:\Users\Zaad\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\Google.Protobuf.xml
+C:\Users\Zaad\Documents\GitHub\HHDB\HHDB Dashboard\SampleMembership\bin\MySql.Data.xml

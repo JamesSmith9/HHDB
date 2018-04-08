@@ -31,7 +31,7 @@
 
         Select a question to add: <br />
 
-        @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
+        @Html.DropDownList("qAdd", Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
         <br />
         <button>Add</button>
         @Html.HiddenFor(m => m.SurveyID)
@@ -41,16 +41,6 @@
 <br />
 <br />
 
-@using (Html.BeginForm("SXQRemove", "Surveys", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-<form>
 
-    Select a question to remove: <br />
-    @Html.DropDownListFor(Model => Model.AllQuestions, Model.AllQuestions.Select(x => new SelectListItem { Text = x.QText, Value = x.QuestionID.ToString() }))
-    <br />
-    <button>Remove</button>
-    @Html.HiddenFor(m => m.SurveyID)
-</form>
-}
 
 

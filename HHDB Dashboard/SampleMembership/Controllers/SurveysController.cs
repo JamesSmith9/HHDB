@@ -144,6 +144,27 @@ namespace SampleMembership.Controllers
             return View(survey);
         }
 
+        public ActionResult SXQRemoveFrom(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = db.Surveys.Find(id);
+            if (survey == null)
+            {
+                return HttpNotFound();
+            }
+
+            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
+                .Select(x => x.Question).ToList();
+
+            survey.AllQuestions = db.Questions.ToList();
+
+
+            return View(survey);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -153,12 +174,11 @@ namespace SampleMembership.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
+        public ActionResult SXQAdd([Bind(Include = "SurveyID")]Survey survey)
         {
-            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question).ToList();
 
-            int QID = QuestionToAdd.QuestionID;
+
+            int QID = Int32.Parse(Request.Form["qAdd"]);
 
 
            
@@ -202,63 +222,15 @@ namespace SampleMembership.Controllers
                 }
             }
 
-            
 
-            return View("Details", survey);
-        }
 
-        public ActionResult SXQRemove([Bind(Include = "SurveyID")]Survey survey, Question QuestionToAdd)
-        {
             survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question).ToList();
+    .Select(x => x.Question).ToList();
 
-            int QID = QuestionToAdd.QuestionID;
-
-
-            
-            string connString = ConfigurationManager.ConnectionStrings["SampleMembershipDB"].ConnectionString;
-            SqlConnection conn = null;
-            try
-            {
-                conn = new SqlConnection(connString);
-                conn.Open();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "DELETE FROM SurveyXQuestion WHERE QuestionID = '@QuestionID' AND SurveyID = '@SurveyID')";
-                    cmd.Parameters.AddWithValue("QuestionID", QID);
-                    cmd.Parameters.AddWithValue("@SurveyID", survey.SurveyID);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 1)
-                    {
-                        //Success notification
-                    }
-                    else
-                    {
-                        //Error notification
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string a = ex.ToString();
-                //log error 
-                //display friendly error to user
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-
-            
 
             return View("Details", survey);
         }
+
+
     }
 }

@@ -18,7 +18,7 @@ namespace SampleMembership.Controllers
         // GET: Import
         public ActionResult Index()
         {
-            return View(db.Answers.ToList());
+            return View(db.Surveys.ToList());
         }
 
         [Authorize(Roles = "Administrator, User")]

@@ -1,0 +1,75 @@
+﻿@model SampleMembership.Models.Survey
+
+@{
+    ViewBag.Title = "Report Form";
+}
+
+<h2>@Model.Name</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
+}
+
+
+<script src="\Scripts\jquery-3.3.1.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+    var series = new Array();
+
+    $(function () {
+        $.ajax({
+            url: '/api/highcharts',
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                for (var i in data) {
+                    var serie = new Array(data[i].Quantity, data[i].Month);
+                    series.push(serie);
+                }
+                DrawPieChart();
+            },
+            error: function (xhr) {
+                alert(xhr);
+            }
+        });
+    });
+
+
+    function DrawPieChart() {
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Percentage of Surveys',
+                colorByPoint: true,
+                data: series
+            }]
+        })
+    };
+</script>

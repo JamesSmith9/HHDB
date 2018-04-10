@@ -435,7 +435,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Reports\PieChart.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
-    <Content Include="Views\Reports\ReportForm.cshtml" />
+    <Content Include="Views\Reports\Report.cshtml" />
     <Content Include="Views\Surveys\SXQEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -35,10 +35,17 @@ namespace SampleMembership.Controllers
             {
                 return HttpNotFound();
             }
+            var surveyQuestions = db.SurveyXQuestions.Where(p => p.SurveyID == id).ToList();
+            List<Question> questions = new List<Question>();
+            foreach (var sq in surveyQuestions)
+            {
+                var q = db.Questions.Where(quest => quest.QuestionID == sq.QuestionID).FirstOrDefault();
+                questions.Add(q);
+            }
+
 
             // Gets Active and Inactive Survey Questions
-            survey.SurveyQuestions = db.SurveyXQuestions.Where(x => x.SurveyID == survey.SurveyID)
-                .Select(x => x.Question).ToList();
+            survey.Questions = questions.Select(q => new SelectListItem() { Selected = false, Text = q.QText, Value = q.QuestionID.ToString() }).ToList();
 
             return View(survey);
         }

@@ -12,8 +12,9 @@ namespace SampleMembership.Models
     using System;
     using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
-	public partial class Survey
+    public partial class Survey
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Survey()
@@ -21,6 +22,8 @@ namespace SampleMembership.Models
             this.SurveyXQuestions = new HashSet<SurveyXQuestion>();
         }
     
+        public int? QuestionID { get; set; }
+
         public int SurveyID { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
@@ -35,5 +38,7 @@ namespace SampleMembership.Models
 
         [Display(Name = "SXQIDs")]
 		public List<int> SXQIDs = new List<int>();
-	}
+
+        public IEnumerable<SelectListItem> Questions { get; set; }
+    }
 }

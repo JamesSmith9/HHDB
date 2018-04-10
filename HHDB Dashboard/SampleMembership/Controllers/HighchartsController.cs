@@ -35,84 +35,6 @@ namespace SampleMembership.Controllers
 			}
 		}
 
-		// GET: api/Highcharts/5
-		[ResponseType(typeof(Answer))]
-		public IHttpActionResult GetAnswer(int id)
-		{
-			Answer answer = db.Answers.Find(id);
-			if (answer == null)
-			{
-				return NotFound();
-			}
-
-			return Ok(answer);
-		}
-
-		// PUT: api/Highcharts/5
-		[ResponseType(typeof(void))]
-		public IHttpActionResult PutAnswer(int id, Answer answer)
-		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
-			if (id != answer.AnswerID)
-			{
-				return BadRequest();
-			}
-
-			db.Entry(answer).State = EntityState.Modified;
-
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!AnswerExists(id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
-			return StatusCode(HttpStatusCode.NoContent);
-		}
-
-		// POST: api/Highcharts
-		[ResponseType(typeof(Answer))]
-		public IHttpActionResult PostAnswer(Answer answer)
-		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
-			db.Answers.Add(answer);
-			db.SaveChanges();
-
-			return CreatedAtRoute("DefaultApi", new { id = answer.AnswerID }, answer);
-		}
-
-		// DELETE: api/Highcharts/5
-		[ResponseType(typeof(Answer))]
-		public IHttpActionResult DeleteAnswer(int id)
-		{
-			Answer answer = db.Answers.Find(id);
-			if (answer == null)
-			{
-				return NotFound();
-			}
-
-			db.Answers.Remove(answer);
-			db.SaveChanges();
-
-			return Ok(answer);
-		}
 
 		protected override void Dispose(bool disposing)
 		{
@@ -121,11 +43,6 @@ namespace SampleMembership.Controllers
 				db.Dispose();
 			}
 			base.Dispose(disposing);
-		}
-
-		private bool AnswerExists(int id)
-		{
-			return db.Answers.Count(e => e.AnswerID == id) > 0;
 		}
 	}
 }

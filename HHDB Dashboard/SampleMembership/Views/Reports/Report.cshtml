@@ -25,13 +25,88 @@
     <div class="form-group">
         @Html.Label("Year", new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.QuestionID, Model.Questions, "[Not specified]", new { @class = "form-control input-sm" })
+            @Html.TextBox("Year", "", new { @class = "form-control" })
         </div>
     </div>
+    @{
+        List<SelectListItem> months = new List<SelectListItem>();
+        months.Add(new SelectListItem
+        {
+            Text = "",
+            Value = "",
+            Selected = true
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "1",
+            Value = "1"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "2",
+            Value = "2",
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "3",
+            Value = "3"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "4",
+            Value = "4"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "5",
+            Value = "5"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "6",
+            Value = "6"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "7",
+            Value = "7"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "8",
+            Value = "8"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "9",
+            Value = "9"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "10",
+            Value = "10"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "11",
+            Value = "11"
+        });
+        months.Add(new SelectListItem
+        {
+            Text = "12",
+            Value = "12"
+        });
+    }
+
     <div class="form-group">
         @Html.Label("Month", new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.QuestionID, Model.Questions, "[Not specified]", new { @class = "form-control input-sm" })
+            @Html.DropDownList("Month", months, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Generate" class="btn btn-default" />
         </div>
     </div>
 </div>
@@ -40,62 +115,4 @@
         }
 
 
-        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-        <script src="http://code.highcharts.com/highcharts.js"></script>
-        <script type="text/javascript">
-            var series = new Array();
-
-            $(function () {
-                $.ajax({
-                    url: '/api/highcharts',
-                    dataType: "json",
-                    type: "GET",
-                    success: function (data) {
-                        for (var i in data) {
-                            var serie = new Array(data[i].Quantity, data[i].Month);
-                            series.push(serie);
-                        }
-                        DrawPieChart();
-                    },
-                    error: function (xhr) {
-                        alert(xhr);
-                    }
-                });
-            });
-
-
-            function DrawPieChart() {
-                Highcharts.chart('container', {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Average rating (1-5) for Question 1: I would recommend Hubbard House to family and friends.'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Percentage of Surveys',
-                        colorByPoint: true,
-                        data: series
-                    }]
-                })
-            };
-        </script>
+      

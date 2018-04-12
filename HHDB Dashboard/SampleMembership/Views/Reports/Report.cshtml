@@ -1,9 +1,9 @@
 ﻿@model SampleMembership.Models.Survey
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Report Form";
+    ViewBag.Title = "Report Form";
 }
 
 <h2>@Model.Name</h2>
@@ -12,107 +12,190 @@
 
 @using (Html.BeginForm())
 {
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.SurveyID)
+    @Html.HiddenFor(model => model.Name, new { @class = "form-control", @id = "Name" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.Label("Question", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.QuestionID, Model.Questions, "[Not specified]", new { @class = "form-control input-sm" })
+        <div class="form-group">
+            @Html.Label("Question", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.QuestionID, Model.Questions, "[Not specified]", new { @class = "form-control input-sm" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.Label("Year", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBox("Year", "", new { @class = "form-control" })
+        <div class="form-group">
+            @Html.Label("Year", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Year", "", new { @class = "form-control", @id = "year" })
+            </div>
         </div>
-    </div>
-    @{
-        List<SelectListItem> months = new List<SelectListItem>();
-        months.Add(new SelectListItem
-        {
-            Text = "",
-            Value = "",
-            Selected = true
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "1",
-            Value = "1"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "2",
-            Value = "2",
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "3",
-            Value = "3"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "4",
-            Value = "4"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "5",
-            Value = "5"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "6",
-            Value = "6"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "7",
-            Value = "7"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "8",
-            Value = "8"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "9",
-            Value = "9"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "10",
-            Value = "10"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "11",
-            Value = "11"
-        });
-        months.Add(new SelectListItem
-        {
-            Text = "12",
-            Value = "12"
-        });
-    }
-
-    <div class="form-group">
-        @Html.Label("Month", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("Month", months, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="button" value="Generate" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-
-        <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
+        @{
+            List<SelectListItem> months = new List<SelectListItem>();
+            months.Add(new SelectListItem
+            {
+                Text = "",
+                Value = "",
+                Selected = true
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "1",
+                Value = "1"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "2",
+                Value = "2",
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "3",
+                Value = "3"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "4",
+                Value = "4"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "5",
+                Value = "5"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "6",
+                Value = "6"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "7",
+                Value = "7"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "8",
+                Value = "8"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "9",
+                Value = "9"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "10",
+                Value = "10"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "11",
+                Value = "11"
+            });
+            months.Add(new SelectListItem
+            {
+                Text = "12",
+                Value = "12"
+            });
         }
 
+        <div class="form-group">
+            @Html.Label("Month", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Month", months, new { @class = "form-control", @id = "month" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Generate" id="generate" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 
-      
+    <div id="container" style="min-width: 410px; height: 500px; max-width: 700px; margin: 0 auto"></div>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+
+    var series = new Array();
+
+    $(function () {
+        $("#generate").on("click", function () { GetData(); });
+    });
+
+
+    function GetData() {
+        
+        var question = $("#QuestionID").find("option:selected").val();
+        var month = $("#month").find("option:selected").val();
+        var year = $("#year").val();
+        var survey = $("#SurveyID").val();
+        series = [];
+        var url = '/api/highcharts?surveyId=' + survey;
+
+
+        if (question != "") {
+            url += '&questionId=' + question;
+        }
+
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                for (var i in data) {
+                    var serie = new Array(data[i].Quantity, data[i].Month);
+                    series.push(serie);
+                }
+                if (series.length == 0) {
+                    alert("No data found for selection");
+                }
+                else {
+                    DrawPieChart();
+                }
+            },
+            error: function (xhr) {
+                alert(xhr);
+            }
+        })
+    };
+
+    function DrawPieChart() {
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: "Results:"
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Percentage of Surveys',
+                colorByPoint: true,
+                data: series
+            }]
+        })
+    };
+</script>
+
+

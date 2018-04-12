@@ -14,7 +14,7 @@
 <p>
     Search Month: @Html.TextBox("month")
     Search Year: @Html.TextBox("search")
-    Search Question: @Html.TextBox("question")
+    
     <input type="submit" value="Filter" />
 </p>
 }
@@ -37,7 +37,8 @@
                 Quantity
             </th>
             <th>
-                Question ID
+                
+                @Html.ActionLink("Question", "Index", new { sortOrder = ViewBag.QuestionSortParm })
             </th>
             <th></th>
         </tr>

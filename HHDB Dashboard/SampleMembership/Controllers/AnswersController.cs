@@ -17,8 +17,9 @@ namespace SampleMembership.Controllers
         private HHDBEntities db = new HHDBEntities();
 
        
+
         // GET: Answers
-        public ActionResult Index(string sortOrder, int? search, int? month, int? question)
+        public ActionResult Index(string sortOrder, int? search, int? month, string question)
         {
             //Sorting Anwers
             //Year
@@ -27,6 +28,9 @@ namespace SampleMembership.Controllers
             ViewBag.MonthSortParm = sortOrder == "Month" ? "month_desc" : "Month";
             //Create by user
             ViewBag.CreateSortParm = sortOrder == "Create" ? "create_desc" : "Create";
+            //Questions
+            ViewBag.QuestionSortParm = String.IsNullOrEmpty(sortOrder)  ? "Question_desc" : "";
+
             var answers = db.Answers
                 .Include(a => a.SurveyXQuestion)
                 .Include(a => a.aspnet_Users);
@@ -49,18 +53,19 @@ namespace SampleMembership.Controllers
                 answers = answers.Where(a => a.Month == (month));
             }
 
-            //search question
-            if (question != null)
-            {
-                answers = answers.Where(a => a.SXQID == (question));
-            }
-
+            
+      
             //Sort by Month, Year, User
             switch (sortOrder)
             {
                 case "Year_desc":
                     answers = answers.OrderByDescending(a => a.Year);
                     break;
+
+                case "Question_desc":
+                    answers = answers.OrderByDescending(a => a.Year);
+                    break;
+ 
 
                 case "Month":
                     answers = answers.OrderBy(a => a.Month);

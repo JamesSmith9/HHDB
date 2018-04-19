@@ -87,6 +87,7 @@ namespace SampleMembership.Controllers
 
         // GET: api/Controller
         [HttpGet]
+        [Route("")]
         public JsonResult<List<HighchartsAnswerViewModel>> GetAnswers(int surveyId, int questionId, int month)
         {
             try
@@ -117,6 +118,8 @@ namespace SampleMembership.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("")]
         public JsonResult<List<HighchartsAnswerViewModel>> GetAnswers(int surveyId, int questionId, int month, int year)
         {
             try

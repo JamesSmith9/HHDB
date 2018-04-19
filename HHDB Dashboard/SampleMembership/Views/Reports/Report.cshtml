@@ -140,13 +140,23 @@
             url += '&questionId=' + question;
         }
 
+        if (month != "") {
+            url += '&month=' + month;
+        }
+
+        if (year != "") {
+            url += '&year=' + year;
+        }
+
+
+
         $.ajax({
             url: url,
             dataType: "json",
             type: "GET",
             success: function (data) {
                 for (var i in data) {
-                    var serie = new Array(data[i].Quantity, data[i].Month);
+                    var serie = new Array(data[i].AnsText, data[i].Quantity, data[i].Month);
                     series.push(serie);
                 }
                 if (series.length == 0) {
